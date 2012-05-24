@@ -20,10 +20,11 @@
 #
 #Find the value of D = 1000 in minimal solutions of x for which the largest value of x is obtained.
 
+
 def findMinX(D):
     #print D
     y = 1.0
-    while y<1000000000:
+    while True:
         x = (1+D*y*y)**0.5
 
         if x%1 == 0:
@@ -35,12 +36,14 @@ def findMinX(D):
 D_MAX = 1000
 
 d = range(D_MAX+1)
+#only use cases where D is not square per instructions
 d = filter(lambda z: (z**0.5)%1 != 0,d)
 min_x = map(findMinX,d)
 largest_x = max(min_x)
+#find the D value that corresponds to the first matching max in min_x
 largest_d = d[min_x.index(largest_x)]
 
-
+#print both values, second one is the required output
 print largest_x
 print largest_d
 
