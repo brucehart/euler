@@ -18,7 +18,7 @@ D = 1000
 N = xrange(1,D+1)
 
 #find combinations for a and b
-comb = itertools.combinations(N,2)
+comb = itertools.combinations_with_replacement(N,2)
 #filter out sets that don't match the criteria
 result = filter(lambda x:(x[0]+x[1] < D) and isPythag(x[0],x[1],D-x[0]-x[1]),comb)
 #append c (= D-a-b) to each result
