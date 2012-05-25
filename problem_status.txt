@@ -4,6 +4,9 @@
 4.  Completed and checked
 5.  Completed and checked
 6.  Completed and checked
+7.  Completed and checked
+8.  Completed and checked
+8.  Completed and checked
 
 
 66.  Takes a very long time to run (~1 hr.).  Matches some solutions online (778).  Need to look at Chakravala method to compute more efficiently.
