@@ -16,7 +16,7 @@ D = 100
 n = xrange(1,D+1)
 
 sum_squares = reduce(lambda x,y: x+y**2,n)
-square_sum = reduce(lambda x,y: x+y,n)**2
+square_sum = sum(n)**2
 
 diff = square_sum - sum_squares
 
