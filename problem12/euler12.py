@@ -17,6 +17,7 @@
 #
 #What is the value of the first triangle number to have over five hundred divisors?
 
+import time
 
 def triangleNumbers():
     counter = 0
@@ -37,9 +38,15 @@ def countDivisors(n):
             count += 2
     return count
 
-D = 500
+def euler12():
+    D = 500
 
-for t in triangleNumbers():
-    if countDivisors(t) > 500:
-        print t
-        break
+    for t in triangleNumbers():
+        if countDivisors(t) > 500:
+            print t
+            break
+
+if __name__ == '__main__':
+    time.clock()
+    euler12()
+    print "Executed in {} sec".format(time.clock())

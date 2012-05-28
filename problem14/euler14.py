@@ -15,6 +15,8 @@
 #
 #NOTE: Once the chain starts the terms are allowed to go above one million.
 
+import time
+
 def nextChain(i):
     if (i%2 == 0):
         return i//2
@@ -32,17 +34,22 @@ def getSequenceLength(v,N,chain_lengths):
             return count + chain_lengths[v]
     return count
 
-N = 1000000
-chain_lengths = [0]*N
-long_chain = 0
-long_chain_start = 0
+def euler14():
+    N = 1000000
+    chain_lengths = [0]*N
+    long_chain = 0
+    long_chain_start = 0
 
-for m in xrange(13,1000000):
-    c = getSequenceLength(m,N,chain_lengths)
-    chain_lengths[m] = c
-    if c > long_chain :
-        long_chain = c
-        long_chain_start = m
+    for m in xrange(13,1000000):
+        c = getSequenceLength(m,N,chain_lengths)
+        chain_lengths[m] = c
+        if c > long_chain :
+            long_chain = c
+            long_chain_start = m
 
-print long_chain_start
+    print long_chain_start
 
+if __name__ == '__main__':
+    time.clock()
+    euler14()
+    print "Executed in {} sec".format(time.clock())

@@ -4,6 +4,8 @@
 #
 #Find the largest palindrome made from the product of two 3-digit numbers.
 
+import time
+
 def isPalindrome(numVal):
     strVal = str(numVal)
 
@@ -19,8 +21,13 @@ def getProduct():
             yield a*b
 
 
-palindromes = filter(isPalindrome,getProduct())
-#print(palindromes)
-max_palindrome = max(palindromes)
+def euler4():
+    palindromes = filter(isPalindrome,getProduct())
+    #print(palindromes)
+    max_palindrome = max(palindromes)
+    print max_palindrome
 
-print max_palindrome
+if __name__ == '__main__':
+    time.clock()
+    euler4()
+    print "Executed in {} sec".format(time.clock())

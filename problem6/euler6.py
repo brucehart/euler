@@ -10,14 +10,21 @@
 #
 #Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
 
+import time
 
-D = 100
+def euler6():
+    D = 100
 
-n = xrange(1,D+1)
+    n = xrange(1,D+1)
 
-sum_squares = reduce(lambda x,y: x+y**2,n)
-square_sum = sum(n)**2
+    sum_squares = reduce(lambda x,y: x+y**2,n)
+    square_sum = sum(n)**2
 
-diff = square_sum - sum_squares
+    diff = square_sum - sum_squares
 
-print diff
+    print diff
+
+if __name__ == '__main__':
+    time.clock()
+    euler6()
+    print "Executed in {} sec".format(time.clock())
