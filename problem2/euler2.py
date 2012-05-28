@@ -5,10 +5,17 @@
 #1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
 #By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 
-fib = [1,2]
+import time
 
-while((fib[-1]+fib[-2]) <= 4000000):
-	fib.append(fib[-1]+fib[-2])
+def euler2():
+    fib = [1,2]
 
-print sum(filter(lambda x: (x%2)==0,fib))
-	
+    while((fib[-1]+fib[-2]) <= 4000000):
+        fib.append(fib[-1]+fib[-2])
+
+    print sum(filter(lambda x: (x%2)==0,fib))
+
+if __name__ == '__main__':
+    time.clock()
+    euler2()
+    print "Executed in {} sec".format(time.clock())

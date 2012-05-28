@@ -1,15 +1,21 @@
-1.  Completed and checked
-2.  Completed and checked
-3.  Completed and checked
-4.  Completed and checked
-5.  Completed and checked
-6.  Completed and checked
-7.  Completed and checked
-8.  Completed and checked
-9.  Completed and checked
-10. Completed and checked
-11. Completed and checked
-12. Completed and checked 
-13. Completed and checked
+Completed and solution correct - Execution Times
+(Solutions checked at http://projecteuler.net)
+------------------------------------------------
+1.  0.733 ms
+2.  0.222 ms
+3.  0.421 sec
+4.  1.249 sec
+5.  1.542 sec
+6.  0.285 ms
+7.  0.767 sec
+8.  7.754 ms
+9.  0.311 sec
+10. 49.325 sec
+11. 3.468 ms
+12. 8.158 sec
+13. 7.093 ms
+14. 2.824 sec
 
+Other pending problems
+-----------------------------------------------------
 66.  Takes a very long time to run (~1 hr.).  Matches some solutions online (778).  Need to look at Chakravala method to compute more efficiently.

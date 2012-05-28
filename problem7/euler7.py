@@ -4,6 +4,8 @@
 #
 #What is the 10001st prime number?
 
+import time
+
 def isprime(x):
     for n in range(2,int(x**0.5)+1):
         if (x%n == 0 and x != n):
@@ -16,14 +18,18 @@ def infiniteCount():
         c +=1
         yield c
 
-P = 10001
+def euler7():
+    P = 10001
 
-count = 0
+    count = 0
 
-for n in infiniteCount():
-    if (isprime(n)): count += 1
-    if count == P : break
+    for n in infiniteCount():
+        if (isprime(n)): count += 1
+        if count == P : break
 
-print n
+    print n
 
-
+if __name__ == '__main__':
+    time.clock()
+    euler7()
+    print "Executed in {} sec".format(time.clock())

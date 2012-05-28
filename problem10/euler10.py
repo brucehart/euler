@@ -4,6 +4,8 @@
 #
 #Find the sum of all the primes below two million.
 
+import time
+
 def isprime(x):
     if (x<=1): return False
 
@@ -12,9 +14,15 @@ def isprime(x):
             return False
     return True
 
-D = 2000000
-N = xrange(1,D+1)
-p = filter(isprime,N)
-s = sum(p)
+def euler10():
+    D = 2000000
+    N = xrange(1,D+1)
+    p = filter(isprime,N)
+    s = sum(p)
 
-print s
+    print s
+
+if __name__ == '__main__':
+    time.clock()
+    euler10()
+    print "Executed in {} sec".format(time.clock())
