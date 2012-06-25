@@ -40,9 +40,6 @@ def euler45():
 
         t+=1
 
-     
-    
-
 if __name__ == '__main__':
     time.clock()
     euler45()
