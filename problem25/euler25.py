@@ -43,11 +43,9 @@ def fib():
 def euler25():
     f = fib()
 
-    n = 0
-    c = 0
+    c = 1
 
-    while n < (10**999):
-        n = f.next()
+    while f.next() < (10**999):
         c += 1
 
     print c
