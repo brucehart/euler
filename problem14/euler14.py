@@ -40,7 +40,7 @@ def euler14():
     long_chain = 0
     long_chain_start = 0
 
-    for m in xrange(13,1000000):
+    for m in xrange(13,N):
         c = getSequenceLength(m,N,chain_lengths)
         chain_lengths[m] = c
         if c > long_chain :
