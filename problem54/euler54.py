@@ -28,6 +28,7 @@ class Card:
     JACK = 11
     QUEEN = 12
     KING = 13
+    ACE_HIGH = 14
 
     NO_CARD = -1
 
@@ -47,11 +48,18 @@ class Card:
             self.cardvalue = self.NO_CARD
 
         if self.__SUIT_STRING.count(handvalue[1]):
-            self.suit = self.__SUIT_STRING.index(handvalue[1])
+            self.suit = self.__SUIT_STRING.index(handvalue[1])+1
         elif self.__SUIT_STRING.count(handvalue[0]):
-            self.suit = self.__SUIT_STRING.index(handvalue[0])
+            self.suit = self.__SUIT_STRING.index(handvalue[0])+1
         else:
             self.suit = self.NO_CARD
+
+    def __str__(self):
+        if self.cardvalue > 0 and self.suit > 0:
+            return "{0}{1}".format(self.__VAL_STRING[self.cardvalue-1],self.__SUIT_STRING[self.suit-1])
+        else:
+            return "XX"
+
 
     def __cmp__(self, other):
         if self.cardvalue < other.cardvalue:
@@ -80,8 +88,6 @@ class PokerHand:
     STRAIGHT_FLUSH  = 9
     ROYAL_FLUSH     = 10
 
-
-
     def __init__(self,cardstr):
         self.cards = map(lambda x: Card(x),cardstr.split(' '))
 
@@ -90,6 +96,9 @@ class PokerHand:
         elif len(self.cards) < 5:
             for i in range(5 - len(self.cards)):
                 self.cards.append(Card())
+
+    def __str__(self):
+        return " ".join(map(lambda x: str(x),self.cards))
 
     def __cmp__(self, other):
         (self_hand_type,self_high_set_card,self_high_extra) = self.eval_hand()
@@ -125,15 +134,17 @@ class PokerHand:
 
         if self.is_royal_flush():
             hand_type = self.ROYAL_FLUSH
-            high_set_card = Card.ACE
-            high_extra_card = None
+            high_set_card = [Card.ACE_HIGH]
+            high_extra_card = [None]
         elif self.is_straight_flush():
             hand_type = self.STRAIGHT_FLUSH
 
+            sorted_cards = self.sort()
+
             if sorted_cards[0] == Card.ACE:
-                high_set_card = Card.ACE
+                high_set_card = [Card.ACE_HIGH]
             else:
-                high_set_card = sorted_cards[-1].cardvalue
+                high_set_card = [sorted_cards[-1].cardvalue]
 
             high_extra_card = None
         elif self.is_four_of_a_kind():
@@ -143,10 +154,17 @@ class PokerHand:
             keys = self.value_counts().keys()
 
             for k in keys:
+
                 if val_counts[k] == 4:
-                    high_set_card = k
+                    if (k == Card.ACE):
+                        high_set_card = [Card.ACE_HIGH]
+                    else:
+                        high_set_card = [k]
                 else:
-                    high_extra_card = k
+                    if (k == Card.ACE):
+                        high_extra_card = [Card.ACE_HIGH]
+                    else:
+                        high_extra_card = [k]
 
         elif self.is_full_house():
             hand_type = self.FULL_HOUSE
@@ -156,32 +174,43 @@ class PokerHand:
 
             for k in keys:
                 if val_counts[k] == 3:
-                    high_set_card = k
+                    if (k == Card.ACE):
+                        high_set_card = [Card.ACE_HIGH]
+                    else:
+                        high_set_card = [k]
                 elif val_counts[k] == 2:
-                    high_extra_card = k
+                    if (k == Card.ACE):
+                        high_extra_card = [Card.ACE_HIGH]
+                    else:
+                        high_extra_card = [k]
 
         elif self.is_flush():
             hand_type = self.FLUSH
 
             sorted_cards = self.sort()
-            if sorted_cards[0] == Card.ACE:
-                high_set_card = Card.ACE
-            else:
-                high_set_card = sorted_cards[-1].cardvalue
 
-            high_extra_card = map(lambda x: x.cardvalue,sorted_cards[0:-1])
+            if sorted_cards[0].cardvalue == Card.ACE:
+                high_set_card = [Card.ACE_HIGH]
+                high_extra_card = map(lambda x: x.cardvalue,sorted_cards[1:])
+            else:
+                high_set_card = [sorted_cards[-1].cardvalue]
+                high_extra_card = map(lambda x: x.cardvalue,sorted_cards[0:-1])
+
+            high_extra_card = high_extra_card[::-1]
 
         elif self.is_straight():
             hand_type = self.STRAIGHT
 
             sorted_cards = self.sort()
 
-            if sorted_cards[0] == Card.ACE:
-                high_set_card = Card.ACE
+            if sorted_cards[0].cardvalue == Card.ACE:
+                high_set_card = [Card.ACE_HIGH]
+                high_extra_card = map(lambda x: x.cardvalue,sorted_cards[1:])
             else:
-                high_set_card = sorted_cards[-1].cardvalue
+                high_set_card = [sorted_cards[-1].cardvalue]
+                high_extra_card = map(lambda x: x.cardvalue,sorted_cards[0:-1])
 
-            high_extra_card = map(lambda x: x.cardvalue,sorted_cards[0:-1])
+            high_extra_card = high_extra_card[::-1]
 
         elif self.is_three_of_a_kind():
             hand_type = self.THREE_OF_A_KIND
@@ -193,11 +222,17 @@ class PokerHand:
 
             for k in keys:
                 if val_counts[k] == 3:
-                    high_set_card = k
+                    if k == Card.ACE:
+                        high_set_card = [Card.ACE_HIGH]
+                    else:
+                        high_set_card = [k]
                 else:
-                    high_extra_card.append(k)
+                    if k == Card.ACE:
+                        high_extra_card.append(Card.ACE_HIGH)
+                    else:
+                        high_extra_card.append(k)
 
-            high_extra_card = sort(high_extra_card)
+            high_extra_card = sorted(high_extra_card)[::-1]
 
 
         elif self.is_two_pair():
@@ -211,12 +246,18 @@ class PokerHand:
 
             for k in keys:
                 if val_counts[k] == 2:
-                    high_set_card.append(k)
+                    if k == Card.ACE:
+                        high_set_card.append(Card.ACE_HIGH)
+                    else:
+                        high_set_card.append(k)
                 else:
-                    high_extra_card.append(k)
+                    if k == Card.ACE:
+                        high_extra_card.append(Card.ACE_HIGH)
+                    else:
+                        high_extra_card.append(k)
 
-            high_set_card = sort(high_set_card)
-            high_extra_card = sort(high_extra_card)
+            high_set_card = sorted(high_set_card)[::-1]
+            high_extra_card = sorted(high_extra_card)[::-1]
 
         elif self.is_pair():
             hand_type = self.ONE_PAIR
@@ -229,20 +270,34 @@ class PokerHand:
 
             for k in keys:
                 if val_counts[k] == 2:
-                    high_set_card.append(k)
+                    if k == Card.ACE:
+                        high_set_card.append(Card.ACE_HIGH)
+                    else:
+                        high_set_card.append(k)
                 else:
-                    high_extra_card.append(k)
+                    if k == Card.ACE:
+                        high_extra_card.append(Card.ACE_HIGH)
+                    else:
+                        high_extra_card.append(k)
 
-            high_set_card = sort(high_set_card)
-            high_extra_card = sort(high_extra_card)
+            high_set_card = sorted(high_set_card)[::-1]
+            high_extra_card = sorted(high_extra_card)[::-1]
 
         else:
             hand_type = self.HIGH_CARD
 
-            high_set_card = None
+            high_set_card = [None]
+            high_extra_card = []
+
             keys = self.value_counts().keys()
 
-            high_extra_card = sort(keys)
+            for k in keys:
+                if k == Card.ACE:
+                    high_extra_card.append(Card.ACE_HIGH)
+                else:
+                    high_extra_card.append(k)
+
+            high_extra_card = sorted(high_extra_card)[::-1]
 
         return (hand_type,high_set_card,high_extra_card)
 
@@ -328,12 +383,31 @@ class PokerHand:
         return value_counts
 
 def euler54():
-    hands = open('poker.txt').readlines()
-    hands = map(lambda x: x.strip(),hands)
-    card_hands = map(lambda x: PokerHand(x),hands)
-    card_hands.hands[0].is_royal_flush()
+    matchups = open('poker.txt').readlines()
+    matchups = map(lambda x: x.strip(),matchups)
 
+    player1Wins = 0
+    player2Wins = 0
+    ties = 0
 
+    for hand_pair in matchups:
+        cards = hand_pair.split(' ')
+
+        hand1 = PokerHand(" ".join(cards[0:5]))
+        hand2 = PokerHand(" ".join(cards[5:]))
+
+        if (hand1 > hand2):
+            #print "{0} beats {1} -- Player 1 wins".format(hand1,hand2)
+            #print "{0} beats {1} -- Player 1 wins".format(hand1,hand2)
+            player1Wins = player1Wins + 1
+        elif (hand2 > hand1):
+            #print "{0} beats {1} -- Player 2 wins".format(hand2,hand1)
+            player2Wins = player2Wins + 1
+        else:
+            #print "{0} ties {1}".format(hand1,hand2)
+            ties = ties + 1
+
+    print "Player 1 wins: {0}".format(player1Wins)
 
 
 if __name__ == '__main__':
