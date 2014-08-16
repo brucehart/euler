@@ -16,7 +16,7 @@ def combos(vals, idx, tot):
     #if previous value and total are equal, return 1 (match)
     if (tot == 0):
         return 1
-    #if we traverse beyond the total or number of coins, return 0 (no match)
+        #if we traverse beyond the total or number of coins, return 0 (no match)
     if (tot < 0 or  idx <= 0):
         return 0
     else:
