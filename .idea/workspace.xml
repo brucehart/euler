@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19f5a658-5975-46e5-9cce-99a75e6bbe43" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problem10/euler10.py" afterPath="$PROJECT_DIR$/problem10/euler10.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem31/euler31.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem31/problem31.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem31/solution31.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problem_status.txt" afterPath="$PROJECT_DIR$/problem_status.txt" />
     </list>
     <ignored path="euler.iws" />
@@ -26,25 +29,43 @@
       <file leaf-file-name="problem_status.txt" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/problem_status.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="9" selection-start="276" selection-end="276" vertical-scroll-proportion="0.23448277">
+            <state line="26" column="13" selection-start="469" selection-end="469" vertical-scroll-proportion="0.508046">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="euler10.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/problem10/euler10.py">
+      <file leaf-file-name="euler30.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/problem30/euler30.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="50" selection-start="1021" selection-end="1021" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="760" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="solution10.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/problem10/solution10.txt">
+      <file leaf-file-name="problem31.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/problem31/problem31.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="12" selection-start="0" selection-end="12" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="321" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="euler31.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/problem31/euler31.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="16" selection-start="977" selection-end="977" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="solution31.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/problem31/solution31.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -64,6 +85,9 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/problem10/euler10.py" />
+        <option value="$PROJECT_DIR$/problem31/problem31.txt" />
+        <option value="$PROJECT_DIR$/problem31/euler31.py" />
+        <option value="$PROJECT_DIR$/problem31/solution31.txt" />
         <option value="$PROJECT_DIR$/problem_status.txt" />
       </list>
     </option>
@@ -129,6 +153,34 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="problem31" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="euler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="euler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="problem30" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="euler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="euler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="problem10" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -141,6 +193,24 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <module name="euler" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -229,7 +299,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/problem10/euler10.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="50" selection-start="1021" selection-end="1021" vertical-scroll-proportion="0.0">
+        <state line="48" column="50" selection-start="1021" selection-end="1021" vertical-scroll-proportion="0.7850575">
           <folding />
         </state>
       </provider>
@@ -241,9 +311,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/problem30/euler30.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="760" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem31/problem31.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="321" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem31/euler31.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="16" selection-start="977" selection-end="977" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem31/solution31.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/problem_status.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="9" selection-start="276" selection-end="276" vertical-scroll-proportion="0.23448277">
+        <state line="26" column="13" selection-start="469" selection-end="469" vertical-scroll-proportion="0.508046">
           <folding />
         </state>
       </provider>
