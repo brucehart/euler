@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19f5a658-5975-46e5-9cce-99a75e6bbe43" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem49/euler49.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem49/problem49.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem49/solution49.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem22/euler22.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem22/problem22.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem22/solution22.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problem_status.txt" afterPath="$PROJECT_DIR$/problem_status.txt" />
     </list>
@@ -25,17 +25,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="problem_status.txt" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/problem_status.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="14" selection-start="569" selection-end="569" vertical-scroll-proportion="0.41913044">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -48,9 +38,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/problem31/solution31.txt" />
-        <option value="$PROJECT_DIR$/problem42/euler42.txt.py" />
-        <option value="$PROJECT_DIR$/problem42/problem42.txt" />
         <option value="$PROJECT_DIR$/problem42/euler42.py" />
         <option value="$PROJECT_DIR$/problem42/solution42.txt" />
         <option value="$PROJECT_DIR$/problem31/euler31.py" />
@@ -63,7 +50,10 @@
         <option value="$PROJECT_DIR$/problem49/problem49.txt" />
         <option value="$PROJECT_DIR$/problem49/solution49.txt" />
         <option value="$PROJECT_DIR$/problem49/euler49.py" />
+        <option value="$PROJECT_DIR$/problem22/problem22.txt" />
+        <option value="$PROJECT_DIR$/problem22/euler22.py" />
         <option value="$PROJECT_DIR$/problem_status.txt" />
+        <option value="$PROJECT_DIR$/problem22/solution22.txt" />
       </list>
     </option>
   </component>
@@ -170,6 +160,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="problem36" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="euler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="euler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="problem34" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -185,6 +189,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="problem31" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="euler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="euler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="problem22" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -260,11 +278,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32960895" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32960895" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14514408" sideWeight="0.6703911" order="0" side_tool="false" content_ui="combo" />
@@ -334,62 +352,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/problem42/problem42.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="157" selection-start="0" selection-end="601" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/problem31/euler31.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="52" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.68390805">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/problem44/problem44.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="153" selection-start="0" selection-end="410" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/problem44/solution44.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="7" selection-start="0" selection-end="7" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/problem42/solution42.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="4" selection-end="4" vertical-scroll-proportion="0.025679758">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/problem31/solution31.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="5" selection-start="0" selection-end="5" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/problem42/euler42.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="0" selection-start="0" selection-end="1546" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/problem34/problem34.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="62" selection-start="0" selection-end="216" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/problem34/solution34.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0">
@@ -401,15 +363,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="13" selection-end="13" vertical-scroll-proportion="0.029565217">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/problem44/euler44.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="514" selection-end="875" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#489#500#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -443,9 +396,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/problem22/p022_names.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem36/euler36.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem44/euler44.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="9" selection-start="932" selection-end="932" vertical-scroll-proportion="0.8278261">
+          <folding>
+            <element signature="e#489#500#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem42/solution42.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem31/euler31.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="1120" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem22/problem22.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="9" selection-start="509" selection-end="509" vertical-scroll-proportion="0.12662943">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem42/euler42.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="59" selection-start="1033" selection-end="1088" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem22/euler22.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="35" selection-start="870" selection-end="870" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem22/solution22.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="10" selection-end="10" vertical-scroll-proportion="0.029565217">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/problem_status.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="14" selection-start="569" selection-end="569" vertical-scroll-proportion="0.41913044">
+        <state line="21" column="13" selection-start="401" selection-end="401" vertical-scroll-proportion="0.24173912">
           <folding />
         </state>
       </provider>
