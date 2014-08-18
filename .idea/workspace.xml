@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19f5a658-5975-46e5-9cce-99a75e6bbe43" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem119/euler119.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem119/problem119.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem119/solution119.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem19/euler19.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem19/problem19.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/problem19/solution19.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/problem_status.txt" afterPath="$PROJECT_DIR$/problem_status.txt" />
     </list>
@@ -29,8 +29,19 @@
       <file leaf-file-name="problem_status.txt" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/problem_status.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="10" selection-start="676" selection-end="676" vertical-scroll-proportion="0.83304346">
+            <state line="19" column="12" selection-start="373" selection-end="373" vertical-scroll-proportion="0.56173915">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="euler19.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/problem19/euler19.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="0" selection-start="658" selection-end="658" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#589#600#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -48,9 +59,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/problem44/problem44.txt" />
-        <option value="$PROJECT_DIR$/problem44/solution44.txt" />
-        <option value="$PROJECT_DIR$/problem44/euler44.py" />
         <option value="$PROJECT_DIR$/problem34/problem34.txt" />
         <option value="$PROJECT_DIR$/problem34/euler34.py" />
         <option value="$PROJECT_DIR$/problem34/solution34.txt" />
@@ -61,9 +69,12 @@
         <option value="$PROJECT_DIR$/problem22/euler22.py" />
         <option value="$PROJECT_DIR$/problem22/solution22.txt" />
         <option value="$PROJECT_DIR$/problem119/problem119.txt" />
-        <option value="$PROJECT_DIR$/problem_status.txt" />
         <option value="$PROJECT_DIR$/problem119/euler119.py" />
         <option value="$PROJECT_DIR$/problem119/solution119.txt" />
+        <option value="$PROJECT_DIR$/problem19/problem19.txt" />
+        <option value="$PROJECT_DIR$/problem19/euler19.py" />
+        <option value="$PROJECT_DIR$/problem_status.txt" />
+        <option value="$PROJECT_DIR$/problem19/solution19.txt" />
       </list>
     </option>
   </component>
@@ -129,6 +140,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="problem22" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="euler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="euler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="problem19" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -292,27 +317,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/problem49/problem49.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="83" selection-start="464" selection-end="464" vertical-scroll-proportion="0.12099644">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/problem10/euler10.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="166" selection-end="533" vertical-scroll-proportion="0.23652174">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/problem34/euler34.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="7" selection-start="0" selection-end="896" vertical-scroll-proportion="1.1127273">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/problem22/p022_names.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -385,15 +389,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/problem119/euler119.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="19" selection-start="1281" selection-end="1281" vertical-scroll-proportion="1.0295652">
-          <folding>
-            <element signature="e#462#473#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/problem119/problem119.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="189" selection-start="189" selection-end="189" vertical-scroll-proportion="0.0">
@@ -401,9 +396,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/problem119/euler119.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="19" selection-start="0" selection-end="1394" vertical-scroll-proportion="0.94086957">
+          <folding>
+            <element signature="e#462#473#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem19/problem19.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="105" selection-start="0" selection-end="508" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem19/euler19.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="658" selection-end="658" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#589#600#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/problem19/solution19.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="4" selection-end="4" vertical-scroll-proportion="0.029565217">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/problem_status.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="10" selection-start="676" selection-end="676" vertical-scroll-proportion="0.83304346">
+        <state line="19" column="12" selection-start="373" selection-end="373" vertical-scroll-proportion="0.56173915">
           <folding />
         </state>
       </provider>
