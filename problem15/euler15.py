@@ -22,9 +22,7 @@ def computeRoutes(x,y):
     key = (x,y)
 
     if key in pC:
-        return pC[key]
-
-    print "{0}{1}".format(x,y)
+        return pC[key]    
 
     if (y == 0):
         pC[key] = 1
