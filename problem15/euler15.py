@@ -19,7 +19,7 @@ def computeRoutes(x,y):
     if (y > x):
         return computeRoutes(y,x)
 
-    key = 1000*x + y
+    key = (x,y)
 
     if key in pC:
         return pC[key]
