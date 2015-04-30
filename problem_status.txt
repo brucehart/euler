@@ -10,29 +10,37 @@ Completed and solution correct - Execution Times
 7.  0.767 sec
 8.  7.754 ms
 9.  0.311 sec
-10. 49.325 sec
+10. 1.063 sec
 11. 3.468 ms
 12. 8.158 sec
 13. 7.093 ms
 14. 2.824 sec
 16. 1.075 ms
 17. 2.551 ms
+19. 0.751 ms
 20. 0.481 ms
 21. 5.102 sec
+22. 16.753 ms
 25. 6.414 ms
 27. 7.674 sec
 28. 0.937 ms
 29. 29.933 ms
 30. 8.722 sec
+31. 0.857 sec
+34. 11.441 sec
 36. 1.232 sec
+42. 7.291 ms
+44. 16.529 sec
 45. 0.098 sec
 48. 0.085 sec
+49. 14.252 sec
 53. 0.099 sec
 54. 0.301 sec
 63. 0.282 ms
 71. 1.966 sec
 75. 2.242 sec
 99. 3.968 ms
+119. 0.696 sec
 120. 1.181 ms
 
 
@@ -42,4 +50,5 @@ Other pending problems
 196. In progress.
 254. In progress.
 286. In progress.
-390. In progress
+390. In progress.
+461. In progress.
