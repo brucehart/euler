@@ -54,29 +54,37 @@ def reduced_seq(val,fact_vals):
 
     return ret_reduced
 
+def get_digits(seq):
+    digits_out = []
+
+    for i in range(10):
+        while seq[i] > 0:
+            digits_out.append(i)
+            seq[i] = seq[i] - 1
+
+    return digits_out
+
 def euler254():
     g = [0]*151
 
     fact_vals = [1,1,2,6,24,120,720,5040,40320,362880]
 
+    for i in range(10**5):
 
-    for i in range(1,10**5):
-    #for seq in itertools.product(range(3),repeat=10):
-        #seq_sum = sum(map(lambda x,y: x*y,seq,range(10)))
-        seq_sum = i
-        seq = reduced_seq(i,range(10))
-        digit_sum = reduce(lambda x,y: int(x)+int(y),str(seq_sum))
-
-        if seq_sum == 20:
-            print seq
-
-
+        seq_sum = sf(i)
         sg = min_seq(reduced_seq(seq_sum,fact_vals))
 
-        if digit_sum <= 150 and (g[digit_sum] == 0 or g[digit_sum] > sg):
-            g[digit_sum] = sg
+        if i==267:
+            print seq_sum
+            print sg
 
-    print g
+        if seq_sum <= 150 and (g[seq_sum] == 0 or g[seq_sum] > sg):
+            g[seq_sum] = sg
+
+
+    print g[20]
+
+
 
 if __name__ == '__main__':
     time.clock()
