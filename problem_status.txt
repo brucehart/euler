@@ -30,6 +30,7 @@ Completed and solution correct - Execution Times
 29. 29.933 ms
 30. 8.722 sec
 31. 0.857 sec
+32. <1 ms
 34. 11.441 sec
 36. 1.232 sec
 39. 40 ms
@@ -49,7 +50,7 @@ Completed and solution correct - Execution Times
 119. 0.696 sec
 120. 1.181 ms
 206. 14.554 sec
-230. 16 ms
+230. <1 ms
 
 
 Other pending problems
