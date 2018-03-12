@@ -29,8 +29,7 @@ int main(int argc, char** argv)
 
 	while (i < MAX_I)
 	{
-		ss << i;
-		i++;
+		ss << i++;		
 	}
 
 	std::string champ = ss.str();
