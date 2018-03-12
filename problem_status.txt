@@ -36,6 +36,7 @@ Completed and solution correct - Execution Times
 36. 1.232 sec
 39. 40 ms
 42. 7.291 ms
+43. 3.284 sec
 44. 16.529 sec
 45. 0.098 sec
 48. 0.085 sec
