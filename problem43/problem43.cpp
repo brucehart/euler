@@ -55,14 +55,14 @@ int main(int argc, char** argv)
 	{
 		if (checkRules(pd))
 		{
-			mpz_set_ui(val, atoi(pd.c_str()));
+			mpz_set_str(val, pd.c_str(), 10);
 			mpz_add(pdSum, pdSum, val);						
 		}
 
 	} while(std::next_permutation(pd.begin(), pd.end()));
 
 	char buffer[100];
-	mpz_set_str(pdSum, buffer, 10);
+	mpz_get_str(buffer, 10, pdSum);
 
 	std::cout << buffer << "\n";
 
