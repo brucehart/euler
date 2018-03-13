@@ -33,7 +33,7 @@ bool isCircularPrime(int n)
 	for (int i = 0;i<s.size();i++)
 	{
 		std::string sp = s.substr(i, s.size()-i);
-		sp += s.substr(0, i);
+		sp += s.substr(0, i);	
 
 		if (!isPrime(atoi(sp.c_str())))
 			return false;
@@ -50,8 +50,7 @@ int main(int argc, char** argv)
 	{
 		if (isCircularPrime(i))
 		{
-			count++;
-			//std::cout << i << "\n";
+			count++;			
 		}
 	}
 
