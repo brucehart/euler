@@ -20,7 +20,6 @@ std::string pdBase(int n)
 }
 
 
-
 bool isPrime(int n)
 {
 	for (int i=2;i<sqrt(n);i++)
