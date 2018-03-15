@@ -88,7 +88,7 @@ int main(int argc, char** argv)
 
 			if (d1 > 0 && fabs((float)n1/(float)d1 - ratio) < 0.0001)
 			{
-				//std::cout << n1 << "/" << d1 << " = " << num << "/" << den << "\n";
+				std::cout << n1 << "/" << d1 << " = " << num << "/" << den << "\n";
 				numMatch.push_back(n1);
 				denMatch.push_back(d1);
 			}
