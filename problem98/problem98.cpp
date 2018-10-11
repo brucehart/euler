@@ -151,14 +151,10 @@ std::vector<std::pair<uint64_t, uint64_t>> findMatchingPairs(std::vector<uint32_
 		c1.clear();
 		c1.insert(c1.begin(), '?', 10);
 
-		for (auto i = 0;i<w1.size();i++)
-		{
+		for (auto i = 0;i<w1.size();i++)		
 			c1[st1[i]-'0'] = w1[i];
-		}
-
-
-		for (auto s2: sq2)
-		{
+		
+		for (auto s2: sq2){
 			if (s1 == s2) continue;
 
 			ss2 << squares[s2];
@@ -168,15 +164,12 @@ std::vector<std::pair<uint64_t, uint64_t>> findMatchingPairs(std::vector<uint32_
 			c2.insert(c2.begin(), '?', 10);
 
 			for (auto i = 0;i<w2.size();i++)
-			{
 				c2[st2[i]- '0'] = w2[i];				
-			}
+			
 
 			if (std::equal(c1.begin(), c1.end(), c2.begin()))
-			{
 				matches.push_back(std::make_pair(squares[s1], squares[s2]));
-			}
-
+		
 			ss2.str(std::string());
 		}
 
@@ -208,24 +201,14 @@ int main(int argc, char** argv)
 		{
 			auto sq1 = findSquareMatches(w, sqIdx, squares);
 
-			if (sq1.size() > 0)
+			if (sq1.size() == 0) continue;
+			
+			for (auto m: r)
 			{
-				for (auto m: r)
-				{
-					auto sq2 = findSquareMatches(words[m], sqIdx, squares);
-					auto p = findMatchingPairs(sq1, sq2, w, words[m], squares);
-
-					for (auto x: p)
-					{
-						results.push_back(x.first);
-						results.push_back(x.second);
-						
-						//std::cout << w << ":" << x.first << " -- " << words[m] << ":" << x.second << std::endl;						
-					}
-
-				}
+				auto sq2 = findSquareMatches(words[m], sqIdx, squares);
+				auto p = findMatchingPairs(sq1, sq2, w, words[m], squares);
+				for (auto r: p){results.push_back(r.first); results.push_back(r.second);}
 			}
-
 		}
 	}
 
