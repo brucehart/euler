@@ -38,9 +38,7 @@ int main(int argc, char** argv)
 	uint64_t sum = 0;
 
 	for (int i=2;i<=MAX_N;i++)
-	{		
 		missing.push_back(i);
-	}
 
 	mult[1] = 1;
 	sum += 1;
@@ -53,7 +51,7 @@ int main(int argc, char** argv)
 	matchCount++;
 	sum += mult[9999]/9999;
 
-	while(matchCount < MAX_N && missing.size() > 0)
+	while(matchCount < MAX_N)
 	{
 		for (int i=0;i<missing.size();i++)
 		{
