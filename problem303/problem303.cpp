@@ -57,7 +57,7 @@ int main(int argc, char** argv)
 	{
 		for (int i=0;i<missing.size();i++)
 		{
-			if (m == missing[i] || m % missing[i] == 0)
+			if (m % missing[i] == 0)
 			{
 				mult[missing[i]] = m;
 				erase.push_back(i);
