@@ -22,27 +22,18 @@ int main(int argc, char** argv)
 {	
 	uint64_t a = 2;
 	uint64_t b = 2;	
-	uint64_t x = 0;
+	uint64_t count = 0;
+	uint64_t maxA = 0;
+	double x = 0;
+	double logN = std::log(N);
 	std::set<uint64_t> matches;
 	
-	while (true)
+	for (b = 2; 2.0*std::log(2)+3.0*std::log(b) <= logN; b++)
 	{
-		while (x = pow(a,2)*pow(b,3), x <= N)
-		{		
-			if (matches.count(x) == 0)
-			{				
-				matches.insert(x);				
-				//std::cout << matches.size() << " : " << a << "^2*" << b << "^3" << "=" << x << std::endl;
-			}			
+		maxA = std::floor(std::exp(0.5*(logN-3*std::log(b))));
+		count += maxA;
+		std::cout << "b = " << b << " maxA = " << maxA << " count = " << count << std::endl;
+	}	
 
-			b++;
-		}
-
-		b=2;
-		a++;
-
-		if (pow(a,2)*pow(b,3) > N) break;
-	}
-
-	std::cout << matches.size() << std::endl;
+	std::cout << count << std::endl;
 }
