@@ -16,24 +16,31 @@
 #include <set>
 #include <cstdint>
 
-#define N 		2*std::pow(10,4)
-
 int main(int argc, char** argv)
 {	
 	uint64_t a = 2;
 	uint64_t b = 2;	
-	uint64_t count = 0;
-	uint64_t maxA = 0;
-	double x = 0;
+	uint64_t x = 0;
+	uint64_t N = (uint64_t)9*std::pow(10.0,18.0);
 	double logN = std::log(N);
 	std::set<uint64_t> matches;
 	
-	for (b = 2; 2.0*std::log(2)+3.0*std::log(b) <= logN; b++)
+	for (b = 2; (b*b*b) <= N; b++)
 	{
-		maxA = std::floor(std::exp(0.5*(logN-3*std::log(b))));
-		count += maxA;
-		std::cout << "b = " << b << " maxA = " << maxA << " count = " << count << std::endl;
-	}	
+		std::cout << b << std::endl;
 
-	std::cout << count << std::endl;
+		for (a = 2; true; a++)
+		{
+			x = (a*a*b*b*b);
+			if (x <= N) matches.insert(x);
+			else break;
+		}
+	}
+
+	
+
+	std::cout << "N = " << N << std::endl;
+	std::cout << matches.size() << std::endl;
+
+	return 0;
 }
