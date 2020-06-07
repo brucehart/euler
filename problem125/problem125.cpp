@@ -17,6 +17,7 @@
 #include <cmath>
 #include <vector>
 #include <algorithm>
+#include <numeric>
 #include <stdint.h>
 #include <sstream>
 
@@ -44,7 +45,7 @@ int main(int argc, char** argv)
 	std::vector<int> squares;
 	squares.reserve(SQRT_MAX_N);
 
-	std::set<int> palindromes;
+	std::set<uint64_t> palindromes;
 
 	int i = 1;
 	uint64_t sum = 0;
@@ -75,12 +76,9 @@ int main(int argc, char** argv)
 	}
 
 	for (auto x: palindromes)
-	{
-		std::cout << x << std::endl;
 		pSum+= x;
-	}
-
-	std::cout<<pSum;
+	
+	std::cout << pSum << std::endl;
 
 	return 0;
 }
