@@ -24,7 +24,7 @@
 #define SQRT_MAX_N	10000
 #define MAX_N 		100000000
 
-bool isPalindrome(int n)
+bool isPalindrome(uint64_t n)
 {
 	std::stringstream ss;
 	ss << n;
