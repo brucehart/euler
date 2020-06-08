@@ -42,9 +42,6 @@ bool isPalindrome(int n)
 
 int main(int argc, char** argv)
 {
-	std::vector<int> squares;
-	squares.reserve(SQRT_MAX_N);
-
 	std::set<uint64_t> palindromes;
 
 	int i = 1;
@@ -54,7 +51,7 @@ int main(int argc, char** argv)
 	while (i <= SQRT_MAX_N)
 	{
 		auto j = i;
-		sum += j*j;
+		sum = j*j;
 		j++;
 
 		while (j <= SQRT_MAX_N)
@@ -64,11 +61,8 @@ int main(int argc, char** argv)
 			if (sum > 1 && sum < MAX_N && isPalindrome(sum))
 				palindromes.insert(sum);
 			else if (sum >= MAX_N)
-			{
-				sum = 0;
 				break;
-			}
-
+			
 			j++;
 		}
 
