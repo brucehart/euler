@@ -39,7 +39,7 @@ uint64_t evalSum(uint64_t x, uint64_t digitMask)
 	uint64_t d = 1;
 	uint64_t sum = 0;
 
-	for (uint64_t i=0;(1<<i) <= digitMask && x>0;i++)
+	for (uint64_t i=0; i < (1<<(nD+1)) && x>0;i++)
 	{
 		sum += (x%10)*d;
 
@@ -81,7 +81,7 @@ int main(int argc, char** argv)
 			sum += i*i;
 
 		if (i % 1000 == 0)
-			std::cout << i << std::endl;
+			std::cout << "\r" << (100*i*i/MAX_N) << "%" << std::flush;
 	}
 
 	// std::cout << "81: " << isSplitSum(81,9) << std::endl;
@@ -91,7 +91,7 @@ int main(int argc, char** argv)
 	// std::cout << "10000: " << isSplitSum(10000,100) << std::endl;
 	
 
-	std::cout << sum << std::endl;
+	std::cout << std::endl << sum << std::endl;
 
 	return 0;
 }
