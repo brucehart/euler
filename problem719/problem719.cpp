@@ -23,34 +23,34 @@
 
 int numDigits(int x)
 {
-	std::stringstream ss;
-	ss << x;
-	return ss.str().length();
-}
-
-uint64_t evalSum(uint64_t x, uint64_t digitMask)
-{
-	uint64_t d = 0;
-	uint64_t sum = 0;
-
-	std::stringstream ss;
-	ss << x;
-	
-
-	for (int i=0;i<ss.str().length();i++)		
+	int nD = 0; 
+	while (x > 0)
 	{
-		if (i > 0 && digitMask & (2 << (i-1)))
-		{
-			sum += d;
-			d = 0;			
-		}
-
-		d *= 10;
-		d += (ss.str()[i] - '0');		
+		x /= 10;
+		nD++;
 	}
 
-	sum += d;
+	return nD;
+}
 
+uint32_t evalSum(uint32_t x, uint32_t digitMask)
+{
+	auto nD = numDigits(x);
+	int d = 1;
+	uint32_t sum = 0;
+
+	for (int i=0;i<nD;i++)
+	{
+		sum += (x%10)*d;
+
+		if (digitMask & (2<<i))
+			d = 1;
+		else
+			d *= 10;
+
+		x /= 10;
+	}
+	
 	return sum;
 }
 
@@ -60,7 +60,7 @@ bool isSplitSum(uint64_t target, uint64_t squareRoot)
 
 	if (nD < 2) return false;
 
-	for(uint64_t i=0;i<=(2<<(nD-1));i++)
+	for(uint64_t i=0;i<=(1<<nD);i++)
 	{
 		if (evalSum(target, i) == squareRoot)
 			return true;		
@@ -69,7 +69,6 @@ bool isSplitSum(uint64_t target, uint64_t squareRoot)
 	return false;
 
 }
-
 
 
 int main(int argc, char** argv)
