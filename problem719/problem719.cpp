@@ -36,14 +36,14 @@ int numDigits(int x)
 uint64_t evalSum(uint64_t x, uint64_t digitMask)
 {
 	int nD = numDigits(x);
-	int d = 1;
+	uint64_t d = 1;
 	uint64_t sum = 0;
 
-	for (int i=0;i<nD;i++)
+	for (uint64_t i=0;(1<<i) <= digitMask && x>0;i++)
 	{
 		sum += (x%10)*d;
 
-		if (digitMask & (2<<i))
+		if (digitMask & (1<<i))
 			d = 1;
 		else
 			d *= 10;
@@ -75,7 +75,7 @@ int main(int argc, char** argv)
 {
 	uint64_t sum =  0;
 
-	for (uint64_t i = 1; i <= SQRT_MAX_N; i++)
+	for (uint64_t i = 1; i*i <= MAX_N; i++)
 	{
 		if (isSplitSum(i*i, i)) 
 			sum += i*i;
