@@ -33,11 +33,11 @@ int numDigits(int x)
 	return nD;
 }
 
-uint32_t evalSum(uint32_t x, uint32_t digitMask)
+uint64_t evalSum(uint64_t x, uint64_t digitMask)
 {
-	auto nD = numDigits(x);
+	int nD = numDigits(x);
 	int d = 1;
-	uint32_t sum = 0;
+	uint64_t sum = 0;
 
 	for (int i=0;i<nD;i++)
 	{
@@ -74,9 +74,6 @@ bool isSplitSum(uint64_t target, uint64_t squareRoot)
 int main(int argc, char** argv)
 {
 	uint64_t sum =  0;
-
-
-	//std::cout << numDigits(10000) << " " << evalSum(10000, 2) << std::endl;
 
 	for (uint64_t i = 1; i <= SQRT_MAX_N; i++)
 	{
