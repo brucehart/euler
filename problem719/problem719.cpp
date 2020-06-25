@@ -16,39 +16,37 @@
 #include <set>
 #include <cstdint>
 #include <math.h>
+#include <sstream>
 
 #define MAX_N		1000000000000
 #define SQRT_MAX_N  1000000
 
 int numDigits(int x)
 {
-	auto nD = ceil(log10((double)x));
-	return (int)nD;
+	std::stringstream ss;
+	ss << x;
+	return ss.str().length();
 }
 
 uint64_t evalSum(uint64_t x, uint64_t digitMask)
 {
-
-	uint64_t sum = 0;
 	uint64_t d = 0;
-	uint64_t c = 0;
-	auto nD = numDigits(x);
+	uint64_t sum = 0;
 
-	if (nD == 1) return x;
+	std::stringstream ss;
+	ss << x;
+	
 
-	for(auto i=0;i<nD;i++)
+	for (int i=0;i<ss.str().length();i++)		
 	{
-		d += (x % 10)*pow(10,c++);
-
-		if ((digitMask & (1 << (i-0))) > 0)
+		if (i > 0 && digitMask & (2 << (i-1)))
 		{
 			sum += d;
-			d = 0;
-			c = 0;
+			d = 0;			
 		}
-				
-		x /= 10;
-		
+
+		d *= 10;
+		d += (ss.str()[i] - '0');		
 	}
 
 	sum += d;
@@ -78,19 +76,23 @@ int main(int argc, char** argv)
 {
 	uint64_t sum =  0;
 
-	std::cout << evalSum(10000, 2) << std::endl;
 
-	for (uint64_t i = 1; i <= 100; i++)
+	//std::cout << numDigits(10000) << " " << evalSum(10000, 2) << std::endl;
+
+	for (uint64_t i = 1; i <= SQRT_MAX_N; i++)
 	{
 		if (isSplitSum(i*i, i)) 
 			sum += i*i;
+
+		if (i % 1000 == 0)
+			std::cout << i << std::endl;
 	}
 
-	std::cout << "81: " << isSplitSum(81,9) << std::endl;
-	std::cout << "6724: " << isSplitSum(6724,82) << std::endl;
-	std::cout << "8281: " << isSplitSum(8281,91) << std::endl;
-	std::cout << "9801: " << isSplitSum(9801,99) << std::endl;
-	std::cout << "10000: " << isSplitSum(10000,100) << std::endl;
+	// std::cout << "81: " << isSplitSum(81,9) << std::endl;
+	// std::cout << "6724: " << isSplitSum(6724,82) << std::endl;
+	// std::cout << "8281: " << isSplitSum(8281,91) << std::endl;
+	// std::cout << "9801: " << isSplitSum(9801,99) << std::endl;
+	// std::cout << "10000: " << isSplitSum(10000,100) << std::endl;
 	
 
 	std::cout << sum << std::endl;
