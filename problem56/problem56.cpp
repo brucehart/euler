@@ -15,18 +15,22 @@ void get_sum(mpz_t* y, mpz_t* sum)
 {
 	char buf[BUF_SIZE];
 	char* c;
-	mpz_set_ui(sum, 0);
+	mpz_set_ui(*sum, 0U);
 
-	if (mpz_sizeinbase(y, 10) > (BUF_SIZE-2))
+	if (mpz_sizeinbase(*y, 10U) > (BUF_SIZE-2))
 		throw std::overflow_error("Error: Buffer size exceeded in get_sum");
 
-	mpz_get_str(buf,10,y);
-	c = buf;
+	mpz_get_str(buf,10,*y);
+	c = &buf[0];
 
-	while(c)
-		mpz_add_ui(sum, sum, c-'0');
+	while(*c)
+	{
+		long unsigned int cc = *c - '0';
+		mpz_add_ui(*sum, *sum, cc);
+		c++;
+	}
 	
-	return;l
+	return;
 }
 
 int main(int argc, char** argv)
@@ -38,9 +42,7 @@ int main(int argc, char** argv)
 	mpz_init(sum);
 	mpz_init(max_sum);
 
-	mpz_set_ui(max_sum, 0);
-
-	
+	mpz_set_ui(max_sum, 0U);
 
 	for(unsigned long int aa=1;aa<100;aa++)
 	{
@@ -49,15 +51,18 @@ int main(int argc, char** argv)
 		for(unsigned long int bb=1;bb<100;bb++)
 		{	
 			mpz_set_ui(b, bb);
-			mpz_pow_ui(y, a, b);
-			getSum(y, sum);
+			mpz_pow_ui(y, a, bb);
+			get_sum(&y, &sum);
 
 			if (mpz_cmp(sum, max_sum) > 0)
+			{
 				mpz_set(max_sum, sum);
+				//gmp_printf("%Zd ^ %Zd = %Zd\n", a, b, sum);
+			}
 		}
 	}
 
-	mpz_printf("%Zd\n", max_sum);
+	gmp_printf("%Zd\n", max_sum);
 
 	return 0;
 }
