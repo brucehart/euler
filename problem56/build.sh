@@ -1,1 +1,1 @@
-g++ problem56.cpp -o problem56 -lgmp
+g++ problem56.cpp -g -o problem56 -lgmp
