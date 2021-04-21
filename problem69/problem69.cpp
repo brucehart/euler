@@ -19,32 +19,70 @@
 #include <iostream>
 #include <map>
 
-#define MAX_N   10 //1000000
+#define MAX_N   1000000
+
+unsigned int gcd(unsigned int u, unsigned int v)
+{
+    // Base cases
+    // gcd(n, n) = n
+    if (u == v)
+        return u;
+    
+    //  Identity 1: gcd(0, n) = gcd(n, 0) = n
+    if (u == 0)
+        return v;
+    if (v == 0)
+        return u;
+
+    if (u & 1) { // u is odd
+        if (v % 2 == 0) // v is even
+            return gcd(u, v / 2); // Identity 3
+        // Identities 4 and 3 (u and v are odd, so u-v and v-u are known to be even)
+        if (u > v)
+            return gcd((u - v) / 2, v);
+        else
+            return gcd((v - u) / 2, u);
+    } else { // u is even
+        if (v & 1) // v is odd
+            return gcd(u / 2, v); // Identity 3
+        else // both u and v are even
+            return 2 * gcd(u / 2, v / 2); // Identity 2
+    }
+}
 
 int main(int argc, char** argv)
 {
     std::map<int, int> phi;
 
-    for (int i=2; i <= MAX_N; i++)
-        phi[i] = i-1;
-    
-    for (int j=2;j <= MAX_N; j++)
-    {
-        int m = 2*j;
+    float max_ratio = 0.0001;
+    float target = 0.0;
+    int maxK = 0;
 
-        while (m <= MAX_N)
+    for (int i=2;i<=MAX_N;i++)
+    {
+        phi[i] = 1;
+        target = i/max_ratio;
+
+        for (int j=2;j<i;j++)
         {
-            phi[m]--;
-            m+=j;
+            if (gcd(j,i) == 1) phi[i]++;
+            if (phi[i] > target) break;
+        }
+
+        if (i % 1000 == 0) std::cout << i << std::endl;
+
+        if ((float)i/phi[i] > max_ratio) 
+        {
+            maxK = i;
+            max_ratio = (float)i/phi[i];
         }
     }
 
-    float max_ratio = 0.0;
-    int maxK = 0;
+    
 
     for(int k=2; k<= MAX_N; k++)
     {
-        std::cout << k << " | " << phi[k] << " | " << (float)k/phi[k] << std::endl;
+        //std::cout << k << " | " << phi[k] << " | " << (float)k/phi[k] << std::endl;
         if (k/phi[k] > max_ratio)
         {
             max_ratio = k/phi[k];
