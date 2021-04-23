@@ -75,8 +75,7 @@ int main(int argc, char** argv)
     for (p[1]='a';p[1]<='z';p[1]++)
     {
     for (p[2]='a';p[2]<='z';p[2]++)
-    {
-        break;
+    {        
         m = transform_msg(oriM, p);
         sc = score_msg(m);
 
@@ -84,18 +83,18 @@ int main(int argc, char** argv)
         {
             bM = m;
             bSc = sc;
-
-            std::cout << bSc << std::endl;
         }
 
     }}}
+    
+    
+    //std::cout << bSc << std::endl;
+    //std::cout << bM << std::endl;
 
-    p[0] = 'g';p[1] = 'o';p[2] = 'd';
-    std::cout << transform_msg(oriM, p) << std::endl;
+    uint64_t sum; 
+    for(char c: bM) sum+=(int)c;
 
-    // std::cout << oriM.length() <<std::endl;
-    // std::cout << bSc << std::endl;
-    // std::cout << bM << std::endl;
+    std::cout << sum << std::endl;
 
     return 0;
 }
