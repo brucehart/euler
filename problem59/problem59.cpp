@@ -15,12 +15,9 @@ std::string transform_msg(const std::string& msg, int* x)
     std::string out;
     int n = 0;
 
-    for (auto c: msg)
-    {
-        out.push_back(c^x[n]);                
-        if (++n==3) n=0;            
-    }
-
+    for (auto c: msg)    
+        out.push_back(c^x[n++%3]);                             
+    
     return out;
 }
 
@@ -84,13 +81,8 @@ int main(int argc, char** argv)
             bM = m;
             bSc = sc;
         }
-
     }}}
     
-    
-    //std::cout << bSc << std::endl;
-    //std::cout << bM << std::endl;
-
     uint64_t sum; 
     for(char c: bM) sum+=(int)c;
 
