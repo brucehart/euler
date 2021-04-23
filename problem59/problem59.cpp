@@ -16,7 +16,7 @@ std::string transform_msg(const std::string& msg, int* x)
     int n = 0;
 
     for (auto c: msg)    
-        out.push_back(c^x[n++%3]);                             
+        out.push_back(c^x[++n%3]);                             
     
     return out;
 }
@@ -83,7 +83,7 @@ int main(int argc, char** argv)
         }
     }}}
     
-    uint64_t sum; 
+    uint32_t sum; 
     for(char c: bM) sum+=(int)c;
 
     std::cout << sum << std::endl;
