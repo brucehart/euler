@@ -48,12 +48,22 @@ bool check_pandigital(mpz_t& n, char* buf)
     if (mpz_sizeinbase(n, 10) > (BUF_SIZE - 2))
         throw std::overflow_error("Error: Buffer size exceeded in check_pandigital().");
 
-    mpz_get_str(buf, 10, n);    
+   if (mpz_sizeinbase(n, 10) < 9)
+      return false;
+   
+    mpz_t m;
+    mpz_t base;
+    mpz_init_set_str(base, "1000000000", 10); // 10^9
 
-    int w = strlen(buf);    
-    if (w < 9) return false;
-
-    return pandigital(buf) && pandigital(&buf[w-9]);
+    mpz_mod(m, n, base);    
+    mpz_get_str(buf, 10, m);    
+    
+   if (pandigital(buf))
+      mpz_get_str(buf, 10, n);
+   else
+      return false;
+    
+    return pandigital(buf);
 }
 
 int main(int argc, char** argv)
