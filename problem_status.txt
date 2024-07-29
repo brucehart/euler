@@ -103,13 +103,4 @@ Completed and solution correct - Execution Times
 800. 2 min 14.4 sec
 808. 48.625 sec
 816. 1 min 12.7 sec
-
-Other pending problems
------------------------------------------------------
-66.  In progress. Need to look at Chakravala method to compute more efficiently.
-104. Completed but need to improve execution time
-196. In progress.
-254. In progress.
-286. In progress.
-390. In progress.
-461. In progress.
+820. 16.094 sec
