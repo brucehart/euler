@@ -16,7 +16,7 @@ script_dir=$(dirname "$0")
 current_dir=$(pwd)
 
 # Define the base command
-base_command="g++ -g3 --std=c++20"
+base_command="g++ -g3 --std=c++2a"
 
 # Check if the current directory is the same as the script directory
 if [ "$script_dir" == "$current_dir" ]; then
