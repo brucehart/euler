@@ -1,8 +1,9 @@
-//Author: Bruce J. Hart <bruce.hart@gmail.com>
+// Author: Bruce J. Hart <bruce.hart@gmail.com>
 
-// Maximising a weighted product
+// Maximizing a weighted product
 // Problem 190 
-// Let Sm = (x1, x2, ... , xm) be the m-tuple of positive real numbers with x1 + x2 + ... + xm = m for which Pm = x1 * x2^2 * ... * xm^m is maximised.
+// Let Sm = (x1, x2, ... , xm) be the m-tuple of positive real numbers with x1 + x2 + ... + xm = m
+// for which Pm = x1 * x2^2 * ... * xm^m is maximized.
 
 // For example, it can be verified that [P10] = 4112 ([ ] is the integer part function).
 
@@ -12,99 +13,76 @@
 #include <vector>
 #include <random>
 #include <cmath>
+#include <algorithm>
 
-#define  M_START		2
-#define  M_END			15
-#define  DELTAS			{0.01, 0.001, 0.0001, 0.00001}
-#define  ALPHA			100
+#define M_START 2
+#define M_END 15
+#define DELTAS {0.01, 0.001, 0.0001, 0.00001}
+#define ALPHA 100
 
-
-double computeP(std::vector<double> S)
-{
-	double P = 1.0;
-
-	for (int n=1;n<=S.size();n++)
-	{
-		P *= pow(S[n-1],(double)n);
-	}
-
-	return P;
+// Function to compute P given a vector S
+double computeP(const std::vector<double>& S) {
+    double P = 1.0;
+    for (size_t n = 0; n < S.size(); ++n) {
+        P *= pow(S[n], static_cast<double>(n + 1));
+    }
+    return P;
 }
 
+// Function to find the maximum P for a given m
+double findMaxP(int m) {
+    std::vector<double> S(m, 1.0);  // Initialize S with 1.0
+    std::vector<double> S_new(m);   // New vector to store changes
+    std::vector<double> deltas = DELTAS;
 
-double findMaxP(int m)
-{
-	std::vector<double> S;
-	std::vector<double> S_new;
-	std::vector<double> deltas = DELTAS;
+    std::default_random_engine rand;
+    std::uniform_int_distribution<int> dist(0, m - 1);
+    int addIdx, subIdx;
 
-	std::default_random_engine rand;
-	std::uniform_int_distribution<int> dist(0, m-1);
-	int addIdx, subIdx;
+    double maxP = computeP(S);  // Initialize maxP with initial P value
+    double newP;
 
-	double maxP = 0;
-	double newP;
+    int missCount = 0;
 
-	int missCount = 0;
+    for (double d : deltas) {
+        while (missCount < ALPHA) {
+            std::copy(S.begin(), S.end(), S_new.begin());
+            addIdx = dist(rand);
+            subIdx = dist(rand);
 
-	for (int i=0;i<m;i++)
-		S.push_back(1.0);
+            // Ensure the element to be decreased is greater than the delta
+            if (S_new[subIdx] > d) {
+                S_new[addIdx] += d;
+                S_new[subIdx] -= d;
+            }
 
-	S_new.resize(S.size());
+            newP = computeP(S_new);
 
-	maxP = computeP(S);
+            // If new P is greater, update maxP and reset missCount
+            if (newP > maxP) {
+                maxP = newP;
+                std::copy(S_new.begin(), S_new.end(), S.begin());
+                missCount = 0;
+            } else {
+                ++missCount;
+            }
+        }
+        missCount = 0;  // Reset missCount for the next delta
+    }
 
-	for (auto d: deltas)
-	{
-		while (missCount < ALPHA)
-		{
-			std::copy(S.begin(), S.end(), S_new.begin());
-			
-			addIdx = dist(rand);
-			subIdx = dist(rand);
-	
-			if (S_new[subIdx] > d)
-			{
-				S_new[addIdx] += d;
-				S_new[subIdx] -= d;
-			}
-
-			newP = computeP(S_new);
-
-			if (newP > maxP)
-			{
-				maxP = newP;
-				std::copy(S_new.begin(), S_new.end(), S.begin());
-				missCount = 0;
-			}
-			else
-			{
-				missCount++;
-			}
-		}
-
-		missCount = 0;
-	}
-
-	return maxP;
+    return maxP;
 }
 
+int main() {
+    double maxP;
+    int maxPSum = 0;
 
+    // Iterate over the range from M_START to M_END
+    for (int m = M_START; m <= M_END; ++m) {
+        maxP = findMaxP(m);
+        maxPSum += static_cast<int>(std::floor(maxP));  // Add the integer part of maxP to the sum
+    }
 
-int main(int argc, char** argv)
-{
-
-	double maxP;
-	int maxPSum = 0;
-
-	int attempts = 0;
-	double P = 0.0;
-
-	for (int m = M_START; m <= M_END; m++)
-	{
-		maxP = findMaxP(m);
-		maxPSum += floor(maxP);				
-	}
-
-	std::cout << maxPSum;
+    std::cout << maxPSum << std::endl;  // Output the final result
+    return 0;
 }
