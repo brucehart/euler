@@ -87,6 +87,7 @@ Completed and solution correct - Execution Times
 85. 16 ms
 86. <1 ms
 87. 1 sec.
+88. 984 ms
 89. 8 ms
 91. 31 ms
 92. 21.672 sec
