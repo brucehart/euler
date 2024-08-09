@@ -7,8 +7,8 @@ int calculateMaxPrizeFund(int turns) {
     std::vector<std::vector<double>> p(turns + 1);
 
     // Populate the probability matrix with zeros for each possible outcome
-    for (int turn = 2; turn <= turns + 1; ++turn) {
-        p[turn - 2] = std::vector<double>(turn, 0.0);
+    for (int t = 0; t < turns; ++t) {
+        p[t] = std::vector<double>(t+2, 0.0);
     }
 
     // Set the initial probabilities for the first turn (50% chance for blue or red disc)
