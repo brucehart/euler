@@ -1,5 +1,5 @@
 #include <iostream>
-#include <sstream>
+
 
 unsigned long long power(int base, int exp) {
     unsigned long long result = 1;
