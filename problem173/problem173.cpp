@@ -11,7 +11,7 @@ int main() {
         int prevCount = count;       // Store the count before this iteration to detect changes
 
         // Continue adding layers until the number of tiles exceeds the limit
-        while (tiles <= limit) {
+        while (true) {
             squareSize += 2;  // Increase the square size by adding one layer around
             tiles = squareSize * squareSize - innerSide * innerSide;  // Calculate the number of tiles used
 
