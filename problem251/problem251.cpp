@@ -1,5 +1,6 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <iostream>  // For input/output functions
+#include <cmath>     // For math functions like sqrt
+#include <cstdio>    // For printf
 
 // Maximum limit constant
 const long long MAX_LIMIT = 110000000;
@@ -24,19 +25,19 @@ long long solveCongruence(long long a, long long c, long long m, long long &x, l
     if (c % gcd != 0) return -1;  // No solution exists
 
     long long mCoef = c / gcd;
-    long long mAbs = abs(a / gcd);
+    long long mAbs = std::abs(a / gcd);
     y *= mCoef;
     y = (y % mAbs + mAbs) % mAbs;
     x = (c - m * y) / a;
-    return abs(gcd);
+    return std::abs(gcd);
 }
 
 int main() {
     long long gcdResult, mValue;
     
     // Upper limits for loop bounds (assumed not yet proven)
-    long long maxQ = sqrt(((MAX_LIMIT + 1) / 3 * 8 - 3) / 5) + 3;
-    long long maxP = sqrt((MAX_LIMIT + 1) / 5) + 3;
+    long long maxQ = std::sqrt(((MAX_LIMIT + 1) / 3 * 8 - 3) / 5) + 3;
+    long long maxP = std::sqrt((MAX_LIMIT + 1) / 5) + 3;
 
     long long totalSolutions = 0;
 
@@ -54,7 +55,7 @@ int main() {
     }
 
     // Output the total number of solutions found
-    printf("%lld\n", totalSolutions);
+    std::printf("%lld\n", totalSolutions);
 
     return 0;
 }
