@@ -83,7 +83,9 @@ cyclic_set = find_cyclic_set()
 if cyclic_set:
     cyclic_values = [num for _, num in cyclic_set]
     cyclic_sum = sum(cyclic_values)
-    print("Cyclic Set:", cyclic_set)
-    print("Sum of Cyclic Set:", cyclic_sum)
+    #print("Cyclic Set:", cyclic_set)
+    #print("Sum of Cyclic Set:", cyclic_sum)
+    print(cyclic_sum)
 else:
     print("No cyclic set found")
+
