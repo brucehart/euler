@@ -18,3 +18,4 @@ export -f check_python2_syntax
 
 # Find all .py files and check each for Python 2 specific syntax
 find "$SEARCH_PATH" -name '*.py' -type f -exec bash -c 'check_python2_syntax "$0"' {} \;
+
