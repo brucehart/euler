@@ -1,27 +1,25 @@
-#Author: Bruce Hart <bruce.hart@gmail.com>
+# Author: Bruce Hart <bruce.hart@gmail.com>
 
-#n! means n * (n - 1) * ... * 3 * 2 * 1
+# n! means n * (n - 1) * ... * 3 * 2 * 1
 #
-#For example, 10! = 10 * 9 * ... * 3 * 2 * 1 = 3628800,
-#and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.
+# For example, 10! = 10 * 9 * ... * 3 * 2 * 1 = 3628800,
+# and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.
 #
-#Find the sum of the digits in the number 100!
+# Find the sum of the digits in the number 100!
 
-
-import time
+from functools import reduce
 
 def genDigits():
-    seed = reduce(lambda x,y:x*y,xrange(1,101))
+    seed = reduce(lambda x, y: x * y, range(1, 101))
     
-    while (seed > 0):
-        r = seed%10
+    while seed > 0:
+        r = seed % 10
         seed //= 10
         yield r
 
 def euler20():
-    print sum(genDigits())
+    print(sum(genDigits()))
 
 if __name__ == '__main__':
-    time.clock()
     euler20()
-    print "Executed in {0} sec".format(time.clock())
+
