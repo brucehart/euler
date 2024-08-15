@@ -61,7 +61,7 @@ class Card:
             return "XX"
 
 
-    def __cmp__(self, other):
+    def cmp(self, other):
         if self.cardvalue < other.cardvalue:
             return -1
         elif self.cardvalue > other.cardvalue:
@@ -73,6 +73,16 @@ class Card:
                 return -1
             else:
                 return 1
+    
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+    
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+    
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+    
 
 class PokerHand:
     cards = None
@@ -88,11 +98,11 @@ class PokerHand:
     STRAIGHT_FLUSH  = 9
     ROYAL_FLUSH     = 10
 
-    def __init__(self,cardstr):
-        self.cards = map(lambda x: Card(x),cardstr.split(' '))
+    def __init__(self, cardstr):
+        self.cards = list(map(lambda x: Card(x), cardstr.split(' ')))  # Convert map to list
 
         if len(self.cards) > 5:
-            self.cards = self.cards[0:4]
+            self.cards = self.cards[0:5]
         elif len(self.cards) < 5:
             for i in range(5 - len(self.cards)):
                 self.cards.append(Card())
@@ -100,7 +110,7 @@ class PokerHand:
     def __str__(self):
         return " ".join(map(lambda x: str(x),self.cards))
 
-    def __cmp__(self, other):
+    def cmp(self, other):
         (self_hand_type,self_high_set_card,self_high_extra) = self.eval_hand()
         (other_hand_type,other_high_set_card,other_high_extra) = other.eval_hand()
 
@@ -124,6 +134,15 @@ class PokerHand:
 
                 return 0
 
+    def __lt__(self, other):
+        return self.cmp(other) < 0
+
+    def __eq__(self, other):
+        return self.cmp(other) == 0
+    
+    def __gt__(self, other):
+        return self.cmp(other) > 0
+    
     def sort(self):
         return sorted(self.cards)
 
@@ -186,31 +205,29 @@ class PokerHand:
 
         elif self.is_flush():
             hand_type = self.FLUSH
-
             sorted_cards = self.sort()
 
             if sorted_cards[0].cardvalue == Card.ACE:
                 high_set_card = [Card.ACE_HIGH]
-                high_extra_card = map(lambda x: x.cardvalue,sorted_cards[1:])
+                # Convert map to list and reverse
+                high_extra_card = list(map(lambda x: x.cardvalue, sorted_cards[1:]))[::-1]
             else:
                 high_set_card = [sorted_cards[-1].cardvalue]
-                high_extra_card = map(lambda x: x.cardvalue,sorted_cards[0:-1])
-
-            high_extra_card = high_extra_card[::-1]
+                # Convert map to list and reverse
+                high_extra_card = list(map(lambda x: x.cardvalue, sorted_cards[:-1]))[::-1]
 
         elif self.is_straight():
             hand_type = self.STRAIGHT
-
             sorted_cards = self.sort()
 
-            if sorted_cards[0].cardvalue == Card.ACE:
+            if sorted_cards[0].cardvalue == Card.ACE and sorted_cards[1].cardvalue == Card.TEN:
                 high_set_card = [Card.ACE_HIGH]
-                high_extra_card = map(lambda x: x.cardvalue,sorted_cards[1:])
+                # Convert map to list and reverse
+                high_extra_card = list(map(lambda x: x.cardvalue, sorted_cards[1:]))[::-1]
             else:
                 high_set_card = [sorted_cards[-1].cardvalue]
-                high_extra_card = map(lambda x: x.cardvalue,sorted_cards[0:-1])
-
-            high_extra_card = high_extra_card[::-1]
+                # Convert map to list and reverse
+                high_extra_card = list(map(lambda x: x.cardvalue, sorted_cards[:-1]))[::-1]
 
         elif self.is_three_of_a_kind():
             hand_type = self.THREE_OF_A_KIND
@@ -316,58 +333,43 @@ class PokerHand:
             return False
 
     def is_four_of_a_kind(self):
-        vals = self.value_counts().values()
-
-        if (vals.count(4) == 1):
-            return True
-        else:
-            return False
+        vals = list(self.value_counts().values())  # Convert dict_values to list
+        return vals.count(4) == 1
 
     def is_three_of_a_kind(self):
-        vals = self.value_counts().values()
-
-        if (vals.count(3) == 1):
-            return True
-        else:
-            return False
+        vals = list(self.value_counts().values())  # Convert dict_values to list
+        return vals.count(3) == 1
 
     def is_full_house(self):
-        vals = self.value_counts().values()
+        vals = list(self.value_counts().values())  # Convert dict_values to list
+        return (vals.count(3) == 1 and vals.count(2) == 1)
 
-        if (vals.count(3) == 1 and vals.count(2) == 1):
-            return True
-        else:
-            return False
 
     def is_two_pair(self):
-        vals = self.value_counts().values()
+        vals = list(self.value_counts().values())  # Convert dict_values to list
+        return ((vals.count(3)+vals.count(2)) == 2)
 
-        if ((vals.count(2) + vals.count(3))==2):
-            return True
-        else:
-            return False
 
     def is_pair(self):
-        vals = self.value_counts().values()
+        vals = list(self.value_counts().values())  # Convert dict_values to list
+        return (vals.count(2) > 0)
 
-        if (vals.count(2) > 0):
-            return True
-        else:
-            return False
 
     def is_straight(self):
         sorted_cards = self.sort()
-        diffs = map(lambda x,y: x.cardvalue-y.cardvalue,sorted_cards[1:],sorted_cards[0:-1])
+        # Convert the map object to a list to enable comparison
+        diffs = list(map(lambda x, y: x.cardvalue - y.cardvalue, sorted_cards[1:], sorted_cards[:-1]))
 
-        return (diffs == [1,1,1,1] or (sorted_cards[0].cardvalue == Card.ACE and diffs == [Card.TEN-Card.ACE,1,1,1]))
+        # Check if all differences are 1 (straight) or handle special case for Ace
+        return diffs == [1, 1, 1, 1] or (sorted_cards[0].cardvalue == Card.ACE and sorted_cards[1].cardvalue == Card.TEN and diffs == [-9, 1, 1, 1])
+
 
 
     def is_flush(self):
         return self.suit_count() == 1
 
     def suit_count(self):
-        suits = set()
-        map(lambda x: suits.add(x.suit),self.cards)
+        suits = {card.suit for card in self.cards}  # Set comprehension to add suits
         return len(suits)
 
     def value_counts(self):
@@ -397,20 +399,18 @@ def euler54():
         hand2 = PokerHand(" ".join(cards[5:]))
 
         if (hand1 > hand2):
-            #print "{0} beats {1} -- Player 1 wins".format(hand1,hand2)
-            #print "{0} beats {1} -- Player 1 wins".format(hand1,hand2)
+            #print("{0} beats {1} -- Player 1 wins".format(hand1,hand2))            
             player1Wins = player1Wins + 1
         elif (hand2 > hand1):
-            #print "{0} beats {1} -- Player 2 wins".format(hand2,hand1)
+            #print("{0} beats {1} -- Player 2 wins".format(hand2,hand1))
             player2Wins = player2Wins + 1
         else:
-            #print "{0} ties {1}".format(hand1,hand2)
+            #print("{0} ties {1}".format(hand1,hand2))
             ties = ties + 1
 
-    print "Player 1 wins: {0}".format(player1Wins)
+    print(player1Wins)
 
 
-if __name__ == '__main__':
-    time.clock()
+if __name__ == '__main__':    
     euler54()
-    print "Executed in {0} sec".format(time.clock())
+    
