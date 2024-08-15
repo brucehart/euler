@@ -10,8 +10,6 @@
 # Find the next triangle number that is also pentagonal and hexagonal.
 
 
-import time
-
 def triangle(n): return n*(n+1)/2
 def pentagon(n): return n*((3*n)-1)/2
 def hexagon(n): return n*((2*n)-1)
@@ -35,12 +33,10 @@ def euler45():
             Hc = hexagon(h)
 
         if (Pc == Tc and Hc == Tc):
-            print Tc
+            print(int(Tc))
             return
 
         t+=1
 
 if __name__ == '__main__':
-    time.clock()
-    euler45()
-    print "Executed in {0} sec".format(time.clock())
+    euler45()    

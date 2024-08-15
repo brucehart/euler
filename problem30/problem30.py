@@ -1,30 +1,27 @@
-#Author: Bruce Hart <bruce.hart@gmail.com>
+# Author: Bruce Hart <bruce.hart@gmail.com>
 
-#Surprisingly there are only three numbers that can be written as the sum of fourth powers of their digits:
+# Surprisingly there are only three numbers that can be written as the sum of fourth powers of their digits:
 #
-#1634 = 1^4 + 6^4 + 3^4 + 4^4
-#8208 = 8^4 + 2^4 + 0^4 + 8^4
-#9474 = 9^4 + 4^4 + 7^4 + 4^4
+# 1634 = 1^4 + 6^4 + 3^4 + 4^4
+# 8208 = 8^4 + 2^4 + 0^4 + 8^4
+# 9474 = 9^4 + 4^4 + 7^4 + 4^4
 #
-#As 1 = 1^4 is not a sum it is not included.
+# As 1 = 1^4 is not a sum it is not included.
 #
-#The sum of these numbers is 1634 + 8208 + 9474 = 19316.
+# The sum of these numbers is 1634 + 8208 + 9474 = 19316.
 #
-#Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
+# Find the sum of all the numbers that can be written as the sum of fifth powers of their digits.
 
-
-import time
-
-def sumMatch(n,p):
-    return (sum(map(lambda x: int(x)**p,str(n)))) == n
+def sumMatch(n, p):
+    # Check if sum of p-th powers of its digits equals the number
+    return sum(int(x) ** p for x in str(n)) == n
 
 def euler30():
-    N = 10**6
-    D = xrange(2,N+1)
-    P = 5
-    print sum(filter(lambda x: sumMatch(x,P),D))
+    N = 10**6  # Upper bound for the search
+    P = 5  # Power to raise digits
+    # Using list comprehension to filter numbers matching the condition
+    print(sum(x for x in range(2, N+1) if sumMatch(x, P)))
 
 if __name__ == '__main__':
-    time.clock()
     euler30()
-    print "Executed in {0} sec".format(time.clock())
+
