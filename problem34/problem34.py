@@ -1,42 +1,37 @@
 # -*- coding: utf-8 -*-
-#Author: Bruce Hart <bruce.hart@gmail.com>
+# Author: Bruce Hart <bruce.hart@gmail.com>
 
-#145 is a curious number, as 1! + 4! + 5! = 1 + 24 + 120 = 145.
+# 145 is a curious number, as 1! + 4! + 5! = 1 + 24 + 120 = 145.
 #
-#Find the sum of all numbers which are equal to the sum of the factorial of their digits.
+# Find the sum of all numbers which are equal to the sum of the factorial of their digits.
 #
-#Note: as 1! = 1 and 2! = 2 are not sums they are not included.
+# Note: as 1! = 1 and 2! = 2 are not sums they are not included.
 
-import time
-
-fact = [0]*100
+fact = [0]*100  # Precompute factorials to speed up calculations
 
 def initialize_factorials():
-    fact[0] = 1
+    fact[0] = 1  # 0! is 1
 
     for n in range(1, len(fact)):
-        fact[n] = fact[n-1]*(n)
+        fact[n] = fact[n-1] * n  # Compute n! from (n-1)!
 
 def factorial(x):
-    return fact[x]
+    return fact[x]  # Return precomputed factorial
 
 def factorial_sum(x):
-    x = list(str(x))
-    x = map(lambda n: factorial(int(n)), x)
-    return sum(x)
+    return sum(factorial(int(digit)) for digit in str(x))  # Sum of factorials of digits
 
 def euler34():
-    matches = []
-    initialize_factorials()
-    maxN = factorial(9)*7
+    matches = []  # List to hold numbers meeting the condition
+    initialize_factorials()  # Initialize factorial values
+    maxN = factorial(9) * 7  # Upper limit based on 7 * 9! (largest sum of 7 digit numbers)
 
-    for i in range(3, maxN+1):
-        if (factorial_sum(i) == i):
+    for i in range(3, maxN + 1):  # Start from 3 because 1 and 2 are not sums
+        if factorial_sum(i) == i:  # Check if number is equal to sum of the factorial of its digits
             matches.append(i)
 
-    print sum(matches)
+    print(sum(matches))  # Print the sum of all numbers meeting the condition
 
 if __name__ == '__main__':
-    time.clock()
-    euler34()
-    print "Executed in {0} sec".format(time.clock())
+    euler34()  # Run the function
+

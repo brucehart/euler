@@ -10,14 +10,13 @@
 #Find the pair of pentagonal numbers, Pj and Pk, for which their sum and difference are pentagonal and
 # D = |Pk − Pj| is minimised; what is the value of D?
 
-import time
 import math
 
 def binary_search(A, key, min, max):
     if (max < min):
         return -1
     else:
-        mid = (max+min)/2
+        mid = (max+min)//2
 
         if (mid >= len(A)):
             return -1
@@ -46,10 +45,9 @@ def euler44():
         for k in range(j+1, len(pent_nums)):
             if ((binary_search(pent_nums, pent_nums[j] + pent_nums[k], 0, len(pent_nums)) > 0) and
                 (binary_search(pent_nums, abs(pent_nums[j] - pent_nums[k]), 0, len(pent_nums)) > 0)):
-                print abs(pent_nums[j] - pent_nums[k])
+                print(abs(pent_nums[j] - pent_nums[k]))
                 return
 
-if __name__ == '__main__':
-    time.clock()
+if __name__ == '__main__':    
     euler44()
-    print "Executed in {0} sec".format(time.clock())
+    
