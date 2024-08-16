@@ -29,25 +29,6 @@ std::vector<long long> generate_prime_list(long long n) {
     return primes;
 }
 
-// Function to generate the prime factors of a number n
-std::vector<long long> find_prime_factors(long long n) {
-    std::vector<long long> factors;
-    long long d = 2;
-    while (n > 1) {
-        while (n % d == 0) {
-            factors.push_back(d);
-            n /= d;
-        }
-        d++;
-        if (d * d > n) {
-            if (n > 1) {
-                factors.push_back(n);
-            }
-            break;
-        }
-    }
-    return factors;
-}
 
 // Function to perform modular exponentiation
 long long modular_exponentiation(long long base, long long exp, long long mod) {
