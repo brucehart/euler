@@ -62,9 +62,8 @@ long long compute_sum(long long limit) {
 
     return total;
 }
+
 int main() {
-
     std::cout << compute_sum(40) << std::endl;
-
     return 0;
 }
