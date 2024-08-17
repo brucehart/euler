@@ -1,19 +1,13 @@
 #!/bin/bash
 
-# Check if a number is provided as an argument
-if [ -z "$1" ]; then
-  echo "Usage: $0 <number>"
-  exit 1
-fi
-
-# Store the provided number in a variable
-number=$1
-
 # Get the directory of the script
 script_dir=$(dirname "$0")
 
 # Get the current working directory
 current_dir=$(pwd)
+
+# Store the provided number in a variable
+number=$(echo "$current_dir" | grep -o '[0-9]\+')
 
 # Define the base command
 base_command="g++ -g3 --std=c++2a"
