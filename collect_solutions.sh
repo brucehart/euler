@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create or empty the solutions.txt file
-> solutions.txt
+>solutions.txt
 
 # Loop through all subfolders named problem{number}
 for folder in problem*; do
