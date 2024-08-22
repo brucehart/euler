@@ -110,6 +110,7 @@ Completed and solution correct - Execution Times
 114. 16 ms
 116. <1 ms
 117. <1 ms
+118. 2 min 1.359 sec
 119. 0.696 sec
 120. 1.181 ms
 121. <1 ms
