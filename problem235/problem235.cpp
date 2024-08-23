@@ -47,7 +47,7 @@ double halley_method(double r) {
         double f_prime = compute_f_prime(r);
         double f_double_prime = compute_f_double_prime(r);
         delta = (2.0 * f * f_prime) / (2.0 * pow(f_prime, 2) - f * f_double_prime);
-        r -= delta;    
+        r -= delta;            
     } while (fabs(delta) > EPSILON);
     return r;
 }
