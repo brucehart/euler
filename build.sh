@@ -12,14 +12,24 @@ number=$(echo "$current_dir" | grep -o '[0-9]\+')
 # Define the base command
 base_command="g++ -g3 --std=c++2a"
 
-# Check if the current directory is the same as the script directory
+# Determine the source file path
 if [ "$script_dir" == "$current_dir" ]; then
-  # Include the folder name
-  command="$base_command -o problem${number}/problem${number} problem${number}/problem${number}.cpp"
+  source_file="problem${number}/problem${number}.cpp"
+  output_file="problem${number}/problem${number}"
 else
-  # Leave the folder name out
-  command="$base_command -o problem${number} problem${number}.cpp"
+  source_file="problem${number}.cpp"
+  output_file="problem${number}"
+fi
+
+# Check if the .cpp file contains the #include <gmpxx.h> directive
+if grep -q '#include <gmpxx.h>' "$source_file"; then
+  echo "Detected #include <gmpxx.h>. Adding -lgmp -lgmpxx to the compilation."
+  command="$base_command -o $output_file $source_file -lgmp -lgmpxx"
+else
+  echo "No #include <gmpxx.h> detected. Compiling without -lgmp -lgmpxx."
+  command="$base_command -o $output_file $source_file"
 fi
 
 # Execute the command
 eval $command
+

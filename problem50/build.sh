@@ -1,1 +1,0 @@
-g++ -g3 --std=c++11 -o problem50 problem50.cpp
