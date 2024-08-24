@@ -1,1 +1,0 @@
-g++ problem62.cpp -g -std=c++17 -o problem62 -lgmp
