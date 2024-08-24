@@ -22,11 +22,11 @@ else
 fi
 
 # Check if the .cpp file contains the #include <gmpxx.h> directive
-if grep -q '#include <gmpxx.h>' "$source_file"; then
-  echo "Detected #include <gmpxx.h>. Adding -lgmp -lgmpxx to the compilation."
+if grep -qE '#include <gmpxx.h>|#include <gmp.h>' "$source_file"; then
+  #echo "Detected #include <gmpxx.h>. Adding -lgmp -lgmpxx to the compilation."
   command="$base_command -o $output_file $source_file -lgmp -lgmpxx"
 else
-  echo "No #include <gmpxx.h> detected. Compiling without -lgmp -lgmpxx."
+  #echo "No #include <gmpxx.h> detected. Compiling without -lgmp -lgmpxx."
   command="$base_command -o $output_file $source_file"
 fi
 
