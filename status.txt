@@ -104,6 +104,7 @@ Completed and solution correct - Execution Times
 101. 0 ms
 102. 16 ms
 104. 2.551 sec
+107. 2 ms
 108. 47 ms
 109. <1 ms
 112. 984 ms
