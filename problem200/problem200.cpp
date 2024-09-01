@@ -78,7 +78,7 @@ unsigned long long find200thSqube() {
     unsigned long long p1 = 2;
     std::set<unsigned long long> primes;
 
-    while (p1 < 200000)
+    while (p1 < 20000)
     {
         primes.insert(p1);
         p1 = next_prime(p1);
