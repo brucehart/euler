@@ -5,6 +5,65 @@
 
 
 
+
+
+
+
+
+
+    
+    
+        
+        
+        
+            
+                break;
+            // Break the loop if a prime power exceeds certain constraints (e.g., i > 3)
+            // If n exceeds 4 million, print the current value and exit the program
+            // Increment the power of the current prime
+            // Multiply the current value by the corresponding prime to generate a new product
+            // Store the new value and powers vector in the map
+            if (powers[i] > 0 && i > 3)
+            n *= (2 * e + 1);
+            powers[i]++;                        
+            prime_powers[value] = powers;
+            return 0;
+            std::cout << value << std::endl;
+            value *= primes[i];
+        // After calculating n, increment it and divide by 2
+        // Calculate n as the product of (2*e + 1) for each power e in the 'powers' vector
+        // Check if n exceeds 4 million
+        // Generate new values by incrementing the powers of the prime factors
+        // Get the first element in the map (smallest key-value pair)
+        auto next = prime_powers.begin();
+        auto powers = next->second;    // Extract the powers vector for the corresponding primes
+        auto value = next->first;      // Extract the key (the product value)
+        for (int e : powers) {
+        for (int i = 0; i < powers.size(); i++)
+        if (n > 4000000) {
+        n /= 2;
+        n++;
+        prime_powers.erase(value);     // Remove the current entry from the map
+        unsigned long long n = 1;
+        {                  
+        }
+        }
+        }       
+    // Infinite loop until we find the desired solution
+    // Initialize the map with the key '1' and a vector of zeros (same size as the primes list)
+    // List of prime numbers used in the algorithm
+    // Map to store prime factor products and their corresponding powers
+    prime_powers[1] = std::vector<int>(primes.size(), 0);
+    return 0;
+    std::map<unsigned long long, std::vector<int>> prime_powers;
+    std::vector<int> primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
+    while(true)
+    {
+    }
+#include <map>
+#include <vector>
+int main() {
+}
 1. 233168
 2. 4613732
 3. 6857
@@ -111,6 +170,7 @@
 107. 259679
 108. 180180
 109. 38182
+110. #include <iostream>
 111. 612407567715
 112. 1587000
 113. 51161058134250
