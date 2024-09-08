@@ -103,6 +103,7 @@ Completed and solution correct - Execution Times
 100. 0.065 sec
 101. 0 ms
 102. 16 ms
+103. 66 ms
 104. 2.551 sec
 107. 2 ms
 108. 47 ms
