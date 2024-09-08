@@ -112,6 +112,11 @@ int main() {
 
             // Decrease repeat_count and try again
             repeat_count--;
+
+            //Break out if no primes can be found with 2 or more repeated digits
+            if (repeat_count < 2) {
+                break;
+            }
         }
     }
 
