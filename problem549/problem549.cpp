@@ -109,13 +109,11 @@ int main() {
             prime_count[p]++;
 
             // Check if the next power of this prime exceeds N
-            if (pow(p, prime_count[p]) >= N) {
-                // If so, mark this prime as 'filled'
-                prime_filled[p] = true;
-            } else {
+            if (pow(p, prime_count[p]) >= N)                
+                prime_filled[p] = true; // If so, mark this prime as 'filled'
+            else
                 // Otherwise, update remaining numbers based on this prime and its multiplicity
-                updateRemaining(p, m);
-            }
+                updateRemaining(p, m);            
         }
     }
 
