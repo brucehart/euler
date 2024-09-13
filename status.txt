@@ -175,6 +175,7 @@ Completed and solution correct - Execution Times
 250. 719 ms
 251. 1.777 sec
 267. 1.594 sec
+286. 0 ms
 288. 2.563 sec
 293. 47 ms
 299. 1.730 sec
