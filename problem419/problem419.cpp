@@ -1,269 +1,289 @@
-#include <iostream>
 #include <Eigen/Sparse>
-#include <tuple>
+#include <Eigen/Dense>
 #include <vector>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <string>
-
-
-typedef Eigen::SparseMatrix<double> SpMat;
-
-struct SequenceElement
-{
-    std::string seq;
-    std::vector<int> nextIdx;
-};
-
-
-
-std::vector<SequenceElement> readCSV(std::string filename) {
-    std::vector<SequenceElement> data;
-    std::ifstream file(filename);
-    std::string line;
-    // Skip the first line
-    std::getline(file, line);
-
-    while (std::getline(file, line)) {
-        std::istringstream ss(line);
-        std::string item;
-        SequenceElement element;
-        int col = 0;
-
-        while (std::getline(ss, item, ',')) {
-            if (col == 1) {
-                element.seq = item;
-            } else if (col == 3) {             
-                
-                item.erase(std::remove(item.begin(), item.end(), '('), item.end());
-                std::replace(item.begin(), item.end(), ')', ' ');
-                std::istringstream itemStream(item);
-                std::string subItem;
-                
-                while (std::getline(itemStream, subItem, ' ')) {
-                    if (subItem[0] < '0' || subItem[0] > '9' || subItem.length() == 0) continue;                    
-                    element.nextIdx.push_back(std::stoi(subItem) - 1);
-                }
-                
-            }
-            col++;
-        }
-        data.push_back(element);
-    }
-    return data;
-}
+#include <iostream>
+#include <cstdint>
 
 // Define types for convenience
-typedef uint32_t uint32;
-typedef uint64_t uint64;
-typedef Eigen::SparseMatrix<uint32> SpMat32;
-typedef Eigen::Triplet<uint32> Triplet32;
+typedef uint64_t ull;
+typedef Eigen::Triplet<ull> Triplet;
+typedef Eigen::SparseMatrix<ull> SparseMat;
+typedef Eigen::Matrix<ull, Eigen::Dynamic, 1> Vector;
 
-// Custom hash function for pair<int, int>
-struct pair_hash {
-    std::size_t operator()(const std::pair<int, int>& p) const {
-        // A simple hash combination for pairs
-        return std::hash<int>()(p.first) * 1000003 + std::hash<int>()(p.second);
-    }
-};
-
-// Function to build a SparseMatrix<uint32> with counts
-SpMat32 buildSparseMatrix(const std::vector<int>& rows, const std::vector<int>& cols) {
-    // Ensure rows and cols have the same size
-    if (rows.size() != cols.size()) {
-        throw std::invalid_argument("Rows and Columns lists must have the same length.");
-    }
-
-    // Determine the size of the matrix
-    int max_row = *std::max_element(rows.begin(), rows.end());
-    int max_col = *std::max_element(cols.begin(), cols.end());
-    int num_rows = max_row + 1;
-    int num_cols = max_col + 1;
-
-    // Count occurrences using a hash map
-    std::unordered_map<std::pair<int, int>, uint32, pair_hash> count_map;
-    for (size_t k = 0; k < rows.size(); ++k) {
-        std::pair<int, int> key = {rows[k], cols[k]};
-        count_map[key] += 1;
-    }
-
-    // Create triplet list from the count map
-    std::vector<Triplet32> tripletList;
-    tripletList.reserve(count_map.size());
-
-    for (const auto& entry : count_map) {
-        int row = entry.first.first;
-        int col = entry.first.second;
-        uint32 count = entry.second;
-        tripletList.emplace_back(row, col, count);
-    }
-
-    // Initialize sparse matrix A
-    SpMat32 A(num_rows, num_cols);
-    A.setFromTriplets(tripletList.begin(), tripletList.end());
-
-    return A;
-}
-
-// Function to perform sparse matrix multiplication with modulo 2^30
-SpMat32 multiplyModulo(const SpMat32& A, const SpMat32& B, uint32 modulus) {
-    // Ensure dimensions are compatible
-    if (A.cols() != B.rows()) {
-        throw std::invalid_argument("Incompatible matrix dimensions for multiplication.");
-    }
-
-    // Temporary map to accumulate results
-    std::unordered_map<std::pair<int, int>, uint32, pair_hash> result_map;
-
-    // Iterate through each non-zero entry of A
-    for (int k = 0; k < A.outerSize(); ++k) {
-        for (SpMat32::InnerIterator itA(A, k); itA; ++itA) {
-            int row = itA.row();
-            int colA = itA.col();
-            uint32 valA = itA.value();
-
-            // Iterate through each non-zero entry of B corresponding to colA
-            for (SpMat32::InnerIterator itB(B, colA); itB; ++itB) {
-                int col = itB.col();
-                uint32 valB = itB.value();
-
-                // Compute the product and apply modulo
-                uint64 product = static_cast<uint64>(valA) * static_cast<uint64>(valB);
-                uint32 product_mod = static_cast<uint32>(product & (modulus - 1));
-
-                // Accumulate the result with modulo
-                std::pair<int, int> key = {row, col};
-                uint32& accumulator = result_map[key];
-                accumulator = (accumulator + product_mod) & (modulus - 1);
-            }
-        }
-    }
-
-    // Convert the result_map to triplet list
-    std::vector<Triplet32> tripletList;
-    tripletList.reserve(result_map.size());
-
-    for (const auto& entry : result_map) {
-        int row = entry.first.first;
-        int col = entry.first.second;
-        uint32 val = entry.second;
-        if (val != 0) { // Only store non-zero entries
-            tripletList.emplace_back(row, col, val);
-        }
-    }
-
-    // Initialize the result sparse matrix
-    SpMat32 C(A.rows(), B.cols());
-    C.setFromTriplets(tripletList.begin(), tripletList.end());
-
+// Function to apply modulo to a Sparse Matrix
+SparseMat multiply_sparse_mod(const SparseMat& A, const SparseMat& B, const ull mod) {
+    // Convert SparseMat to Dense for multiplication
+    Eigen::Matrix<ull, Eigen::Dynamic, Eigen::Dynamic> denseA = Eigen::Matrix<ull, Eigen::Dynamic, Eigen::Dynamic>(A);
+    Eigen::Matrix<ull, Eigen::Dynamic, Eigen::Dynamic> denseB = Eigen::Matrix<ull, Eigen::Dynamic, Eigen::Dynamic>(B);
+    
+    // Multiply the dense matrices
+    Eigen::Matrix<ull, Eigen::Dynamic, Eigen::Dynamic> denseC = denseA * denseB;
+    
+    // Apply modulo to each element
+    denseC = denseC.unaryExpr([mod](ull x) -> ull { return x % mod; });
+    
+    // Convert back to SparseMat
+    SparseMat C = denseC.sparseView();
+    C.makeCompressed();
     return C;
 }
 
-// Function to perform exponentiation by squaring with modulo
-SpMat32 powerModulo(const SpMat32& A, uint64 exponent, uint32 modulus) {
-    // Initialize result as the identity matrix
-    int num_rows = A.rows();
-    int num_cols = A.cols();
-    std::vector<Triplet32> identityTriplets;
-    identityTriplets.reserve(std::min(num_rows, num_cols));
-    for (int i = 0; i < std::min(num_rows, num_cols); ++i) {
-        identityTriplets.emplace_back(i, i, 1);
-    }
-    SpMat32 result(num_rows, num_cols);
-    result.setFromTriplets(identityTriplets.begin(), identityTriplets.end());
+// Function to multiply a Sparse Matrix with a Vector, applying modulo
+Vector multiply_sparse_vector_mod(const SparseMat& A, const Vector& v, const ull mod) {
+    // Convert SparseMat to Dense for multiplication
+    Eigen::Matrix<ull, Eigen::Dynamic, Eigen::Dynamic> denseA = Eigen::Matrix<ull, Eigen::Dynamic, Eigen::Dynamic>(A);
+    
+    // Multiply the dense matrix with the vector
+    Eigen::Matrix<ull, Eigen::Dynamic, 1> denseResult = denseA * v;
+    
+    // Apply modulo to each element
+    denseResult = denseResult.unaryExpr([mod](ull x) -> ull { return x % mod; });
+    
+    return denseResult;
+}
 
-    // Initialize base
-    SpMat32 base = A;
+int main() {
+    // Define the size of the matrix
+    const int SIZE = 92;
+    
+    // Define the modulo as 2^30
+    const ull MOD = 1ULL << 30; // 1073741824
+    
+    // Initialize a list to hold non-zero entries as Triplets
+    std::vector<Triplet> tripletList;
+    
+    // Populate the triplet list based on the updateSequence function
+    //Reference table for look and say sequence: https://www.nathanieljohnston.com/2010/10/a-derivation-of-conways-degree-71-look-and-say-polynomial/
+    // See also LookAndSay.csv  
+    tripletList.emplace_back(0, 28, 1);
+    tripletList.emplace_back(1, 31, 1);
+    tripletList.emplace_back(2, 29, 1);
+    tripletList.emplace_back(3, 30, 1);
+    tripletList.emplace_back(4, 32, 1);
+    tripletList.emplace_back(5, 53, 1);
+    tripletList.emplace_back(6, 36, 1);
+    tripletList.emplace_back(7, 37, 1);
+    tripletList.emplace_back(8, 38, 1);
+    tripletList.emplace_back(9, 39, 1);
+    tripletList.emplace_back(10, 43, 1);
+    tripletList.emplace_back(11, 45, 1);
+    tripletList.emplace_back(12, 46, 1);
+    tripletList.emplace_back(13, 47, 1);
+    tripletList.emplace_back(14, 48, 1);
+    tripletList.emplace_back(15, 50, 1);
+    tripletList.emplace_back(16, 51, 1);
+    tripletList.emplace_back(17, 49, 1);
+    tripletList.emplace_back(18, 44, 1);
+    tripletList.emplace_back(19, 52, 1);
+    tripletList.emplace_back(20, 40, 1);
+    tripletList.emplace_back(21, 41, 1);
+    tripletList.emplace_back(22, 42, 1);
+    tripletList.emplace_back(23, 34, 1);
+    tripletList.emplace_back(23, 35, 1);
+    tripletList.emplace_back(24, 56, 1);
+    tripletList.emplace_back(24, 57, 1);
+    tripletList.emplace_back(24, 58, 1);
+    tripletList.emplace_back(24, 59, 1);
+    tripletList.emplace_back(25, 54, 1);
+    tripletList.emplace_back(26, 55, 1);
+    tripletList.emplace_back(27, 33, 1);
+    tripletList.emplace_back(28, 15, 1);
+    tripletList.emplace_back(28, 16, 1);
+    tripletList.emplace_back(28, 18, 1);
+    tripletList.emplace_back(28, 31, 1);
+    tripletList.emplace_back(28, 34, 1);
+    tripletList.emplace_back(28, 35, 1);
+    tripletList.emplace_back(28, 53, 1);
+    tripletList.emplace_back(28, 56, 1);
+    tripletList.emplace_back(28, 57, 1);
+    tripletList.emplace_back(28, 58, 1);
+    tripletList.emplace_back(28, 59, 2); // Coefficient 2
+    tripletList.emplace_back(28, 81, 1);
+    tripletList.emplace_back(28, 85, 1);
+    tripletList.emplace_back(29, 17, 1);
+    tripletList.emplace_back(29, 86, 1);
+    tripletList.emplace_back(30, 87, 1);
+    tripletList.emplace_back(31, 19, 1);
+    tripletList.emplace_back(32, 34, 1);
+    tripletList.emplace_back(32, 35, 1);
+    tripletList.emplace_back(32, 61, 1);
+    tripletList.emplace_back(32, 81, 1);
+    tripletList.emplace_back(33, 88, 1);
+    tripletList.emplace_back(34, 90, 1);
+    tripletList.emplace_back(35, 89, 1);
+    tripletList.emplace_back(36, 91, 1);
+    tripletList.emplace_back(37, 66, 1);
+    tripletList.emplace_back(37, 74, 1);
+    tripletList.emplace_back(37, 85, 1);
+    tripletList.emplace_back(37, 86, 1);
+    tripletList.emplace_back(37, 87, 1);
+    tripletList.emplace_back(38, 66, 1);
+    tripletList.emplace_back(39, 62, 1);
+    tripletList.emplace_back(40, 63, 1);
+    tripletList.emplace_back(41, 64, 1);
+    tripletList.emplace_back(42, 65, 1);
+    tripletList.emplace_back(43, 67, 1);
+    tripletList.emplace_back(44, 82, 1);
+    tripletList.emplace_back(45, 83, 1);
+    tripletList.emplace_back(46, 74, 1);
+    tripletList.emplace_back(46, 75, 1);
+    tripletList.emplace_back(46, 76, 1);
+    tripletList.emplace_back(46, 77, 1);
+    tripletList.emplace_back(46, 78, 1);
+    tripletList.emplace_back(46, 79, 1);
+    tripletList.emplace_back(46, 80, 1);
+    tripletList.emplace_back(46, 81, 1);
+    tripletList.emplace_back(47, 68, 1);
+    tripletList.emplace_back(48, 70, 1);
+    tripletList.emplace_back(49, 71, 1);
+    tripletList.emplace_back(50, 72, 1);
+    tripletList.emplace_back(51, 73, 1);
+    tripletList.emplace_back(52, 84, 1);
+    tripletList.emplace_back(53, 69, 1);
+    tripletList.emplace_back(54, 6, 1);
+    tripletList.emplace_back(54, 75, 1);
+    tripletList.emplace_back(55, 76, 1);
+    tripletList.emplace_back(56, 77, 1);
+    tripletList.emplace_back(57, 78, 1);
+    tripletList.emplace_back(58, 79, 1);
+    tripletList.emplace_back(59, 80, 1);
+    tripletList.emplace_back(60, 31, 1);
+    tripletList.emplace_back(60, 34, 1);
+    tripletList.emplace_back(60, 35, 1);
+    tripletList.emplace_back(60, 53, 1);
+    tripletList.emplace_back(60, 59, 1);
+    tripletList.emplace_back(60, 60, 1);
+    tripletList.emplace_back(60, 81, 1);
+    tripletList.emplace_back(61, 1, 1);
+    tripletList.emplace_back(62, 0, 1);
+    tripletList.emplace_back(63, 1, 1);
+    tripletList.emplace_back(64, 2, 1);
+    tripletList.emplace_back(65, 3, 1);
+    tripletList.emplace_back(66, 57, 1);
+    tripletList.emplace_back(67, 4, 1);
+    tripletList.emplace_back(67, 59, 1);
+    tripletList.emplace_back(68, 5, 1);
+    tripletList.emplace_back(69, 7, 1);
+    tripletList.emplace_back(70, 8, 1);
+    tripletList.emplace_back(71, 20, 1);
+    tripletList.emplace_back(72, 21, 1);
+    tripletList.emplace_back(73, 22, 1);
+    tripletList.emplace_back(74, 18, 1);
+    tripletList.emplace_back(74, 19, 1);
+    tripletList.emplace_back(75, 9, 1);
+    tripletList.emplace_back(76, 10, 1);
+    tripletList.emplace_back(77, 12, 1);
+    tripletList.emplace_back(78, 13, 1);
+    tripletList.emplace_back(79, 14, 1);
+    tripletList.emplace_back(80, 15, 1);
+    tripletList.emplace_back(80, 16, 1);
+    tripletList.emplace_back(80, 17, 1);
+    tripletList.emplace_back(81, 11, 1);
+    tripletList.emplace_back(82, 23, 1);
+    tripletList.emplace_back(83, 6, 1);
+    tripletList.emplace_back(84, 31, 1);
+    tripletList.emplace_back(84, 58, 1);
+    tripletList.emplace_back(85, 24, 1);
+    tripletList.emplace_back(86, 25, 1);
+    tripletList.emplace_back(87, 26, 1);
+    tripletList.emplace_back(88, 27, 1);
+    tripletList.emplace_back(88, 59, 1);
+    tripletList.emplace_back(88, 85, 1);
+    tripletList.emplace_back(89, 16, 1);
+    tripletList.emplace_back(89, 35, 1);
+    tripletList.emplace_back(90, 15, 1);
+    tripletList.emplace_back(90, 34, 1);
+    tripletList.emplace_back(91, 18, 1);
+    tripletList.emplace_back(91, 27, 1);
+    tripletList.emplace_back(91, 53, 1);
+    tripletList.emplace_back(91, 56, 1);
+    tripletList.emplace_back(91, 81, 1);
+    
+    // Create the sparse matrix and populate it with the triplet list
+    SparseMat M(SIZE, SIZE);
+    M.setFromTriplets(tripletList.begin(), tripletList.end());
+    
+    // Compress the matrix for efficient arithmetic operations
+    M.makeCompressed();
+    
+    // Display the number of non-zero entries
+    //std::cout << "Number of non-zero entries in M: " << M.nonZeros() << std::endl;
+    
+    // Initialize the 'prev' vector with all zeros
+    Vector prev(SIZE);
+    prev.setZero();
 
+    prev(23) = 1;
+    prev(38) = 1;
+        
+    // Define the exponent N = 10^12 - 8
+    const ull N = 1000000000000ULL - 8; // 999,999,999,992
+    
+    // Initialize M_power as M
+    SparseMat M_power = M;
+    
+    // Initialize the result vector as 'prev'
+    Vector result = prev;
+    
+    // Initialize a temporary vector for intermediate multiplications
+    Vector temp(SIZE);
+    temp.setZero();
+    
     // Exponentiation by squaring
+    //std::cout << "Starting matrix exponentiation by squaring for N = " << N << "..." << std::endl;
+    
+    ull exponent = N;
+    
     while (exponent > 0) {
-        if (exponent & 1) {
-            result = multiplyModulo(result, base, modulus);
+        if (exponent & 1ULL) {
+            // Multiply M_power with result vector, applying modulo
+            result = multiply_sparse_vector_mod(M_power, result, MOD);
         }
-        base = multiplyModulo(base, base, modulus);
         exponent >>= 1;
-    }
-
-    return result;
-}
-
-
-SpMat32 buildMatrix(std::vector<SequenceElement>& data) {
-    int n = data.size();
-    std::vector<Eigen::Triplet<unsigned int>> tripletList;
-    SpMat32 A(n, n);   
-    
-    for (int i = 0; i < n; i++) {   
-        if (data[i].nextIdx.size() > 0) {
-            std::sort(data[i].nextIdx.begin(), data[i].nextIdx.end());
-        }
-        std::unordered_map<int, int> countMap;
-        for (int idx : data[i].nextIdx) {
-            countMap[idx]++;
-        }
-        for (const auto& entry : countMap) {
-            tripletList.emplace_back(i, entry.first, entry.second);
-        }
-    }
-
-    A.setFromTriplets(tripletList.begin(), tripletList.end());
-
-    return A;
-}
-
-int main(){
-    std::vector<SequenceElement> data = readCSV("LookAndSay.csv");
-    auto A = buildMatrix(data);
-
-    // Print out the matrix A
-    std::cout << "Matrix A:\n";
-    for (int k = 0; k < A.outerSize(); ++k) {
-        for (SpMat32::InnerIterator it(A, k); it; ++it) {
-            std::cout << "(" << it.row() << ", " << it.col() << "): " << it.value() << "\n";
+        if (exponent > 0) {
+            // Square M_power, applying modulo
+            M_power = multiply_sparse_mod(M_power, M_power, MOD);
         }
     }
     
-    long long exponent = 1000000000000 - 8; // 10^12 - 8
-  
+    //std::cout << "Matrix exponentiation completed." << std::endl;
+    
+    // Print the resulting vector
+    //std::cout << "Final state vector after " << (1000000000000ULL - 8) << " iterations (mod 2^30):" << std::endl;
 
-    // Define the modulus as 2^30
-    uint32 modulus = (1U << 30); // 2^30
-    // Alternatively, using unsigned long long to prevent overflow
-    // uint32 modulus = static_cast<uint32>((1ULL << 30));
+    //count the number of 1s, 2s, and 3s from each sequence in the reference table
+    std::vector<unsigned int> A_n_coeffs = {3, 4, 6, 6, 3, 4, 7, 4, 5, 6, 6, 9, 7, 9, 11, 20, 20, 13, 8, 15, 7, 11, 11, 3, 3, 5, 5, 5, 1, 3, 3, 10, 1, 4, 14, 14, 4, 1, 3, 3, 5, 8, 8, 3, 6, 4, 3, 4, 5, 8, 13, 13, 10, 5, 3, 3, 5, 6, 10, 6, 0, 0, 2, 4, 6, 6, 3, 2, 4, 5, 6, 8, 13, 13, 4, 6, 6, 9, 10, 13, 11, 8, 3, 2, 6, 2, 4, 4, 1, 10, 10, 2};
+    std::vector<unsigned int> B_n_coeffs = {1, 1, 4, 3, 0, 0, 4, 1, 2, 3, 2, 3, 3, 3, 4, 14, 13, 8, 3, 8, 6, 11, 10, 1, 3, 4, 3, 1, 1, 5, 4, 9, 0, 1, 12, 11, 3, 1, 1, 2, 4, 7, 6, 1, 2, 2, 2, 2, 5, 9, 17, 16, 6, 2, 3, 2, 3, 4, 7, 6, 2, 0, 1, 2, 6, 5, 3, 0, 0, 1, 2, 5, 10, 9, 3, 4, 3, 4, 5, 7, 8, 4, 1, 1, 6, 1, 3, 2, 1, 13, 14, 2};
+    std::vector<unsigned int> C_n_coeffs = {0, 2, 2, 3, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 8, 9, 5, 3, 5, 1, 2, 3, 1, 1, 1, 2, 2, 0, 1, 2, 4, 1, 1, 6, 7, 1, 1, 1, 1, 1, 3, 4, 2, 2, 2, 2, 2, 2, 3, 4, 5, 4, 3, 1, 2, 3, 3, 4, 5, 0, 1, 1, 1, 2, 3, 1, 2, 2, 2, 2, 3, 5, 6, 2, 2, 3, 3, 3, 4, 4, 4, 2, 2, 3, 3, 3, 4, 1, 4, 3, 1};
 
-    // Perform exponentiation
-    std::cout << "Performing matrix exponentiation...\n";
-    SpMat32 A_power = powerModulo(A, exponent, modulus);
-    std::cout << "Exponentiation completed.\n";
+    unsigned long long A_n = 0;
+    unsigned long long B_n = 0;
+    unsigned long long C_n = 0;
 
-        // Create a sparse row matrix with columns 23 and 38 set to 1 and the rest zero
-        SpMat32 rowVector(1, A.cols());
-        std::vector<Triplet32> rowTriplets;
-        rowTriplets.emplace_back(0, 23, 1);
-        rowTriplets.emplace_back(0, 38, 1);
-        rowVector.setFromTriplets(rowTriplets.begin(), rowTriplets.end());
-
-        // Multiply the row vector by A_power
-        SpMat32 result = rowVector * A_power;
-
-        // Print the resulting matrix
-        std::cout << "Resulting matrix after multiplication:\n";
-        for (int k = 0; k < result.outerSize(); ++k) {
-            for (SpMat32::InnerIterator it(result, k); it; ++it) {
-                std::cout << "(" << it.row() << ", " << it.col() << "): " << it.value() << "\n";
-            }
-        }
-
-    // (Optional) Display non-zero elements (only feasible for small matrices)
-    // For large matrices, consider writing to a file or processing differently
-    std::cout << "Non-zero entries of A^" << exponent << " modulo " << modulus << ":\n";
-    for (int k = 0; k < A_power.outerSize(); ++k) {
-        for (SpMat32::InnerIterator it(A_power, k); it; ++it) {
-            std::cout << "(" << it.row() << ", " << it.col() << "): " << it.value() << "\n";
-        }
+    for(int i = 0; i < SIZE; ++i) {
+        //std::cout << "Index " << i << ": " << result(i) << std::endl;
+        A_n += result(i) * A_n_coeffs[i];
+        B_n += result(i) * B_n_coeffs[i];
+        C_n += result(i) * C_n_coeffs[i];
     }
+
+    // Apply modulo to A_n, B_n, and C_n
+    A_n %= MOD;
+    B_n %= MOD;
+    C_n %= MOD;
+
+    // std::cout << "A_n: " << A_n << std::endl;
+    // std::cout << "B_n: " << B_n << std::endl;
+    // std::cout << "C_n: " << C_n << std::endl;
+
+    std::cout << A_n << "," << B_n << "," << C_n << std::endl;
+
+    
+
+
+
+
+
     
     return 0;
-    
 }
