@@ -64,10 +64,9 @@ int main(){
     static const int limit = 40000000;
     unsigned long long sum = 0;
 
-    int n = 9500000;
+    int n = 9500001;
 
     while(n < limit){        
-
         if (!isPrime(n))
         {
             n++;
@@ -75,7 +74,8 @@ int main(){
         }        
         if (chainLength(n) == 25)
             sum += n;
-        n++;
+
+        n+=2;
     }
 
     std::cout << sum << std::endl;
