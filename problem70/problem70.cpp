@@ -4,8 +4,6 @@
 #include <cmath>
 #include <limits>
 
-using namespace std;
-
 // Function to calculate the Euler's Totient function φ(n)
 int phi(int n) {
     int result = n;
@@ -23,16 +21,16 @@ int phi(int n) {
 
 // Function to check if two numbers are permutations of each other
 bool arePermutations(int a, int b) {
-    string strA = to_string(a);
-    string strB = to_string(b);
-    sort(strA.begin(), strA.end());
-    sort(strB.begin(), strB.end());
+    std::string strA = std::to_string(a);
+    std::string strB = std::to_string(b);
+    std::sort(strA.begin(), strA.end());
+    std::sort(strB.begin(), strB.end());
     return strA == strB;
 }
 
 int main() {
     const int LIMIT = 10000000;
-    double minRatio = numeric_limits<double>::max();
+    double minRatio = std::numeric_limits<double>::max();
     int result = 0;
 
     for (int n = 2; n < LIMIT; ++n) {
@@ -46,6 +44,6 @@ int main() {
         }
     }
 
-    cout << result << endl;
+    std::cout << result << std::endl;
     return 0;
 }
