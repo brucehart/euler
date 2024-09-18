@@ -54,9 +54,11 @@ int main(){
             bTest = b.to_ullong();
             bTest[bit] = 1;
 
+            std::cout << "bit: " << bit << ", bTest: " << std::hex << bTest.to_ullong() << ", a: " << a.to_ullong() << ", target: " << target.to_ullong() << std::dec << std::endl;
             for(int i = bit; i >= 0; i--)
             {               
                 resultTest[bit] = boolXor(resultTest[bit], bTest[i]*bTest[bit-i]);                    
+                std::cout << bit << "**i " << i << " j " << bit-i << std::endl;
                 
                 if (i > 0)
                     resultTest[bit] = boolXor(resultTest[bit], a[i-1]*bTest[bit-i]);
