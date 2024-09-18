@@ -3,18 +3,7 @@
 #include <set>
 #include <bitset>
 
-class BitElement
-{
-public:
-    std::bitset<64> bits;
-    std::bitset<64> isSet;
-    void setAll(uint64_t value) { bits = value; isSet = 0xFFFFFFFFFFFFFFFF;};
-    void set(int bit, int value) { bits[bit] = value; isSet[bit] = 1; };
-    char get(int bit) { return bits[bit]; };
-    bool valueSet(int bit) { return isSet[bit]; };
-    uint64_t value(){ return bits.to_ullong(); };
-    BitElement(uint64_t value=0) : bits(value) {};    
-}
+
 
 uint64_t xorProduct(uint64_t x, uint64_t y)
 {
@@ -35,57 +24,50 @@ uint64_t xorProduct(uint64_t x, uint64_t y)
     return res;
 }
 
-char computeBProductBit(int bit, BitElement& aProduct, BitElement& midProduct, BitElement& target)
-{    
-    char result = aProduct.get(bit) ^ midProduct.get(bit);
-    
-    if (target.get(bit) == 1) return result == 1 ? 0 : 1;
-    else return result;
-}
-
-void setMidProduct(int bit, BitElement& a, BitElement& b, BitElement& midProduct)
-{
-    char productBit = 0;
-
-    for (int i = bit; i >= 0; i--)
-    {
-        if (a.get(i+1) == 1) productBit ^= b.get(i);
-    }
-
-    midProduct.set(bit, productBit);
-}
-
-
 int main(){
-    BitElement a, b, aProduct, midProduct, target;
+    std::bitset<64> a, b, target, resultTest, bTest;
     std::set<uint64_t> bSolutions;
+    int bit = 0;
 
-    a.setAll(0);
-    b.setAll(0); 
-    target.setAll(5);   
-    
-    while (b.value < 1000000000000000000ULL)
+    a.reset();
+
+    while (b.to_ullong() < 1000000000000000000ULL)
     {
-        a.setAll(b.value);
-        aProduct.setAll(xorProduct(a,a));
+        uint64_t result = 0;
+        
 
-        int counter = 0;    
-        midProduct.set(0,0);
-        char bValue = computeBProductBit(counter, aProduct, midProduct, target);
-        b.set(0, bValue);
+        b.reset();
+        target = (5 ^ xorProduct(a.to_ullong(), a.to_ullong()));
+        
+        b[0] = target[0];
+        bit++;
 
-        while (counter < 62)
+        while (bit <= 63)
         {
-            counter++;
-            setMidProduct(counter, a, b, midProduct);
-            bValue = computeBProductBit(counter, aProduct, midProduct, target);
-            b.set(counter, bValue);        
+            bTest = b.to_ullong();
+            bTest[bit] = 1;
+
+            for(int i = bit; i >= 0; i--)
+            {             
+                
+                resultTest[bit] ^= bTest[i]*bTest[bit-i];                    
+                
+                if (i > 0)
+                    resultTest[bit] ^= a[i-1]*bTest[bit-i];
+            }
+
+            if (resultTest[bit] == target[bit])            
+            {
+                b = bTest.to_ullong();
+            }
         }
 
-        if (b.value < 1000000000000000000ULL)        
-            bSolutions.insert(b.value); 
+        if (b.to_ullong() < 1000000000000000000ULL)
+        {
+            bSolutions.insert(b.to_ullong());
+        }
 
-        std::cout << "a: " << a.value << ", b: " << b.value << std::endl;
+        a = b.to_ullong();                       
     }
     
     uint64_t result = 0;
