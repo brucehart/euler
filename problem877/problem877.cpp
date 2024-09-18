@@ -24,20 +24,27 @@ uint64_t xorProduct(uint64_t x, uint64_t y)
     return res;
 }
 
+bool boolXor(bool a, bool b)
+{
+    return (a || b) && !(a && b);
+}
+
 int main(){
     std::bitset<64> a, b, target, resultTest, bTest;
     std::set<uint64_t> bSolutions;
-    int bit = 0;
+    
 
     a.reset();
-
+    
     while (b.to_ullong() < 1000000000000000000ULL)
     {
-        uint64_t result = 0;
-        
+        uint64_t result = 0;       
+        int bit = 0;
 
+        resultTest.reset();
         b.reset();
         target = (5 ^ xorProduct(a.to_ullong(), a.to_ullong()));
+        std::cout << target << std::endl;
         
         b[0] = target[0];
         bit++;
@@ -48,23 +55,27 @@ int main(){
             bTest[bit] = 1;
 
             for(int i = bit; i >= 0; i--)
-            {             
-                
-                resultTest[bit] ^= bTest[i]*bTest[bit-i];                    
+            {               
+                resultTest[bit] = boolXor(resultTest[bit], bTest[i]*bTest[bit-i]);                    
                 
                 if (i > 0)
-                    resultTest[bit] ^= a[i-1]*bTest[bit-i];
+                    resultTest[bit] = boolXor(resultTest[bit], a[i-1]*bTest[bit-i]);
             }
 
             if (resultTest[bit] == target[bit])            
             {
+                std::cout << "resultTest[bit]: " << resultTest[bit] << ", target[bit]: " << target[bit] << std::endl;
                 b = bTest.to_ullong();
             }
+
+            std::cout << "bit: " << bit << ", b: " << std::hex << b.to_ullong() << std::dec << std::endl;
+            bit++;
         }
 
         if (b.to_ullong() < 1000000000000000000ULL)
         {
             bSolutions.insert(b.to_ullong());
+            std::cout << "a: " << a << ", b: " << b << std::endl;
         }
 
         a = b.to_ullong();                       
