@@ -1,96 +1,151 @@
 #include <iostream>
+#include <vector>
 #include <cstdint>
-#include <set>
-#include <bitset>
+#include <algorithm>
 
-
-
-uint64_t xorProduct(uint64_t x, uint64_t y)
+class ProblemSet
 {
-    uint64_t res = 0;
-    for (uint64_t i = 0; i < 64; i++)
+public:
+
+    uint64_t a;
+    uint64_t b;
+    uint64_t target;
+    std::vector<std::vector<int>> xorBits;
+    bool xorState[64];
+    uint64_t foundBMask = 0ULL;
+
+    const uint64_t MASK_FOUND_ALL = 0xFFFFFFFFFFFFFFFFULL;
+
+    ProblemSet(uint64_t aVal, uint64_t targetVal, uint64_t bVal = 0): a(aVal), b(bVal), target(targetVal)
     {
-        if ((x & (1ULL << i)) != 0)
+        setupTarget();        
+        setupEquations();
+        
+        removeDuplicates();
+        solveEquations();
+    }    
+
+    void setupTarget(){ target = target ^ xorProduct(a, a); std::cout << "Target: " << target << std::endl; }    
+    void foundB(int bit){ foundBMask |= (1ULL << bit); }
+
+    static const bool getBit(const uint64_t x, const int i) { 
+        if (i > 63) return false;
+        return (x & (1ULL << i)) != 0; 
+    }
+
+    static const uint64_t xorProduct(const uint64_t a, const uint64_t b)
+    {
+        uint64_t result = 0;
+        for (int i = 0; i < 64; i++)
         {
-            for (uint64_t j = 0; j < 64-i; j++)
+            if (getBit(b, i))
+                result ^= (a << i);
+        }
+        return result;
+    }
+    
+    void setupEquations()
+    {
+        xorBits = std::vector<std::vector<int>>(64);
+        
+        for (int i = 0; i < 64; i++)
+        {
+            xorState[i] = false;                
+            xorBits[i] = std::vector<int>();         
+            
+            if (i % 2 == 0)
+                xorBits[i].push_back(i/2);       
+
+            for (int k=(i-1);k<=0;k++)
             {
-                if ((y & (1ULL << j)) != 0)
+                if (i == 0) continue;
+                if (getBit(a, k))
                 {
-                    res ^= (1ULL << (i + j));
+                    if (i-k-1 < 0)
+                        std::cout << "Error: i-k-1 < 0" << " i: " << i << " k: " << k << std::endl;
+                    else
+                        xorBits[i].push_back(i-k-1);
+                }
+            }           
+        }
+        
+        for (int j = 0; j < 64; j++)
+        {
+            std::cout << "xorBits[" << j << "]: ";
+            for (const auto& elem : xorBits[j])
+            {
+                std::cout << elem << " ";
+            }
+            std::cout << std::endl;
+        }
+       
+        std::cout << std::endl;
+    }
+
+    void removeDuplicates()
+    {
+        for (auto xB: xorBits)
+        {            
+            auto it = std::unique(xB.begin(), xB.end(), [](int a, int b) {
+                return a == b;
+            });
+            xB.erase(it, xB.end());
+        }
+    }
+
+    void solveEquations()
+    {
+        bool madeProgress = false;
+
+        do
+        {
+            madeProgress = false;
+
+            for (int i = 0; i < 64; i++)
+            {        
+                if (xorBits[i].size() == 1)
+                {
+                    int bit = xorBits[i][0];
+                    
+                    if (getBit(target, bit) ^ xorState[bit])                    
+                        b |= (1ULL << bit);                     
+
+                    std::cout << "Set b[" << bit << "] = " << getBit(b, bit) << std::endl;
+
+                    foundB(bit);
+                    madeProgress = true;
+                    xorBits[i].clear();
+
+                    for (int j = 0; j < 64; j++)
+                    {                        
+                        xorBits[j].erase(std::remove(xorBits[j].begin(), xorBits[j].end(), bit), xorBits[j].end());
+                    }
                 }
             }
-        }
-    }
-    return res;
-}
+        } while (madeProgress && foundBMask != MASK_FOUND_ALL);
 
-bool boolXor(bool a, bool b)
-{
-    return (a || b) && !(a && b);
-}
-
-int main(){
-    std::bitset<64> a, b, target, resultTest, bTest;
-    std::set<uint64_t> bSolutions;
-    
-
-    a.reset();
-    
-    while (b.to_ullong() < 1000000000000000000ULL)
-    {
-        uint64_t result = 0;       
-        int bit = 0;
-
-        resultTest.reset();
-        b.reset();
-        target = (5 ^ xorProduct(a.to_ullong(), a.to_ullong()));
-        std::cout << target << std::endl;
-        
-        b[0] = target[0];
-        bit++;
-
-        while (bit <= 63)
-        {
-            bTest = b.to_ullong();
-            bTest[bit] = 1;
-
-            std::cout << "bit: " << bit << ", bTest: " << std::hex << bTest.to_ullong() << ", a: " << a.to_ullong() << ", target: " << target.to_ullong() << std::dec << std::endl;
-            for(int i = bit; i >= 0; i--)
-            {               
-                resultTest[bit] = boolXor(resultTest[bit], bTest[i]*bTest[bit-i]);                    
-                std::cout << bit << "**i " << i << " j " << bit-i << std::endl;
-                
-                if (i > 0)
-                    resultTest[bit] = boolXor(resultTest[bit], a[i-1]*bTest[bit-i]);
-            }
-
-            if (resultTest[bit] == target[bit])            
+        if (foundBMask != MASK_FOUND_ALL)
             {
-                std::cout << "resultTest[bit]: " << resultTest[bit] << ", target[bit]: " << target[bit] << std::endl;
-                b = bTest.to_ullong();
+                std::cout << "No solution found | b = ";
+                for (int i = 63; i >= 0; --i)
+                {
+                    std::cout << ((b >> i) & 1);
+                }
+                std::cout << std::endl;
             }
 
-            std::cout << "bit: " << bit << ", b: " << std::hex << b.to_ullong() << std::dec << std::endl;
-            bit++;
-        }
-
-        if (b.to_ullong() < 1000000000000000000ULL)
-        {
-            bSolutions.insert(b.to_ullong());
-            std::cout << "a: " << a << ", b: " << b << std::endl;
-        }
-
-        a = b.to_ullong();                       
-    }
-    
-    uint64_t result = 0;
-    
-    for (auto it = bSolutions.begin(); it != bSolutions.end(); it++)
-    {
-        result ^= *it;
     }
 
-    std::cout << result << std::endl;
 
+};
+
+
+
+
+int main()
+{
+    ProblemSet p1(6, 5);
+
+    std::cout << "a: " << p1.a << " b: " << p1.b << " target: " << p1.target << std::endl;
     return 0;
 }

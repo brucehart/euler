@@ -1,0 +1,100 @@
+Target: 17
+xorBits[0]: 0 
+xorBits[1]: 
+xorBits[2]: 1 
+xorBits[3]: 
+xorBits[4]: 2 
+xorBits[5]: 
+xorBits[6]: 3 
+xorBits[7]: 
+xorBits[8]: 4 
+xorBits[9]: 
+xorBits[10]: 5 
+xorBits[11]: 
+xorBits[12]: 6 
+xorBits[13]: 
+xorBits[14]: 7 
+xorBits[15]: 
+xorBits[16]: 8 
+xorBits[17]: 
+xorBits[18]: 9 
+xorBits[19]: 
+xorBits[20]: 10 
+xorBits[21]: 
+xorBits[22]: 11 
+xorBits[23]: 
+xorBits[24]: 12 
+xorBits[25]: 
+xorBits[26]: 13 
+xorBits[27]: 
+xorBits[28]: 14 
+xorBits[29]: 
+xorBits[30]: 15 
+xorBits[31]: 
+xorBits[32]: 16 
+xorBits[33]: 
+xorBits[34]: 17 
+xorBits[35]: 
+xorBits[36]: 18 
+xorBits[37]: 
+xorBits[38]: 19 
+xorBits[39]: 
+xorBits[40]: 20 
+xorBits[41]: 
+xorBits[42]: 21 
+xorBits[43]: 
+xorBits[44]: 22 
+xorBits[45]: 
+xorBits[46]: 23 
+xorBits[47]: 
+xorBits[48]: 24 
+xorBits[49]: 
+xorBits[50]: 25 
+xorBits[51]: 
+xorBits[52]: 26 
+xorBits[53]: 
+xorBits[54]: 27 
+xorBits[55]: 
+xorBits[56]: 28 
+xorBits[57]: 
+xorBits[58]: 29 
+xorBits[59]: 
+xorBits[60]: 30 
+xorBits[61]: 
+xorBits[62]: 31 
+xorBits[63]: 
+
+Set b[0] = 1
+Set b[1] = 0
+Set b[2] = 0
+Set b[3] = 0
+Set b[4] = 1
+Set b[5] = 0
+Set b[6] = 0
+Set b[7] = 0
+Set b[8] = 0
+Set b[9] = 0
+Set b[10] = 0
+Set b[11] = 0
+Set b[12] = 0
+Set b[13] = 0
+Set b[14] = 0
+Set b[15] = 0
+Set b[16] = 0
+Set b[17] = 0
+Set b[18] = 0
+Set b[19] = 0
+Set b[20] = 0
+Set b[21] = 0
+Set b[22] = 0
+Set b[23] = 0
+Set b[24] = 0
+Set b[25] = 0
+Set b[26] = 0
+Set b[27] = 0
+Set b[28] = 0
+Set b[29] = 0
+Set b[30] = 0
+Set b[31] = 0
+No solution found | b = 0000000000000000000000000000000000000000000000000000000000010001
+a: 6 b: 17 target: 17
