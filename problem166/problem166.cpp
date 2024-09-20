@@ -71,6 +71,12 @@ int countSolutions(int row1){
         if ((row2/1000) % 10 + (row1/1000) % 10 > s)
             continue;
 
+        if ((row2/10) % 10 + row1 % 10 > s)
+            continue;
+        
+        if ((row1/1000) % 10 + (row2/100) % 10 > s)
+            continue;
+
         for (auto row3: gridRows[sumDigits(row1)]){
             
             if (row3 % 10 + row2 % 10 + row1 % 10 > s)
