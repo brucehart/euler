@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <algorithm>
+#include <thread>
+    #include <future>
 
 std::map<int, std::vector<int>> gridRows;
 
@@ -70,7 +73,7 @@ int countSolutions(int row1){
         if ((row2/100) % 10 + (row1/100) % 10 > s)
             continue;
         if ((row2/1000) % 10 + (row1/1000) % 10 > s)
-            continue;
+            break;
         if ((row2/10) % 10 + row1 % 10 > s)
             continue;        
         if ((row1/1000) % 10 + (row2/100) % 10 > s)
@@ -85,7 +88,7 @@ int countSolutions(int row1){
             if ((row3/100) % 10 + (row2/100) % 10 + (row1/100) % 10 > s)
                 continue;
             if ((row3/1000) % 10 + (row2/1000) % 10 + (row1/1000) % 10 > s)
-                continue;
+                break;
 
             if (validSet(row1, row2, row3))
                 count++;
@@ -105,11 +108,21 @@ int main(){
         gridRows[sumDigits(i)].push_back(i);
     }
 
-    for (auto it = gridRows.begin(); it != gridRows.end(); it++){        
-        //std::cout << it->first << ":" << it->second.size() << std::endl;
-        for (int i=0; i<it->second.size(); i++){        
-            count += countSolutions(it->second[i]);
-        }        
+    std::vector<std::future<unsigned long long>> futures;
+
+    for (auto it = gridRows.begin(); it != gridRows.end(); it++) {
+        std::sort(it->second.begin(), it->second.end());
+        futures.push_back(std::async(std::launch::async, [it]() {
+            unsigned long long local_count = 0;
+            for (int i = 0; i < it->second.size(); i++) {
+                local_count += countSolutions(it->second[i]);
+            }
+            return local_count;
+        }));
+    }
+
+    for (auto& future : futures) {
+        count += future.get();
     }
 
     std::cout << count << std::endl;
