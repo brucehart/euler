@@ -60,11 +60,8 @@ public:
             {
                 if (i == 0) continue;
                 if (getBit(a, k))
-                {
-                    if (i-k-1 < 0)
-                        std::cout << "Error: i-k-1 < 0" << " i: " << i << " k: " << k << std::endl;
-                    else
-                        xorBits[i].push_back(i-k-1);
+                {                  
+                    xorBits[i].push_back(i-k-1);
                 }
             }           
         }
@@ -107,8 +104,17 @@ public:
                 {
                     int bit = xorBits[i][0];
                     
-                    if (getBit(target, bit) ^ xorState[bit])                    
+                    if (getBit(target, bit) ^ xorState[bit])
+                    {
                         b |= (1ULL << bit);                     
+                        for (int k = 0; k < 64; k++)
+                        {
+                            if (k != i && std::find(xorBits[k].begin(), xorBits[k].end(), bit) != xorBits[k].end())
+                            {
+                                xorState[k] = !xorState[k];
+                            }
+                        }
+                    }
 
                     std::cout << "Set b[" << bit << "] = " << getBit(b, bit) << std::endl;
 
