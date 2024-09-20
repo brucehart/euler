@@ -62,6 +62,7 @@ int countSolutions(int row1){
     int s = sumDigits(row1);
  
     for (auto row2: gridRows[sumDigits(row1)]){
+        
         if (row2 % 10 + row1 % 10 > s)
             continue;
         if ((row2/10) % 10 + (row1/10) % 10 > s)
@@ -70,10 +71,8 @@ int countSolutions(int row1){
             continue;
         if ((row2/1000) % 10 + (row1/1000) % 10 > s)
             continue;
-
         if ((row2/10) % 10 + row1 % 10 > s)
-            continue;
-        
+            continue;        
         if ((row1/1000) % 10 + (row2/100) % 10 > s)
             continue;
 
