@@ -9,7 +9,7 @@ using boost::multiprecision::cpp_int;
 
 std::set<uint64_t> specialPrimes;
 static const uint64_t N_MAX = 100000000000;
-static const uint64_t BLOCK_SIZE = 7*13*19*31*37*43;
+static const uint64_t BLOCK_SIZE = 3*7*13*19*31*37*43;
 
 // Basic primality test for small numbers
 bool isPrime(int64_t n) {
@@ -22,15 +22,11 @@ bool isPrime(int64_t n) {
     return true;
 }
 
-// Probabilistic primality test using Miller-Rabin for large numbers
-bool checkPrime(uint64_t n){
-    return boost::multiprecision::miller_rabin_test(n, 25);
-}
-
 // Function to create the set of special primes
 void createSpecialPrimes(){
-    uint64_t maxPrime = N_MAX / (7 * 13 * 19 * 31); // Approximately 1.9285e7
-    for(uint64_t i = 2; i <= maxPrime; i++){
+    uint64_t maxPrime = N_MAX / (3* 7 * 13 * 19);
+    specialPrimes.insert(3);
+    for(uint64_t i = 5; i <= maxPrime; i++){
         if (isPrime(i) && i % 3 == 1){
             specialPrimes.insert(i);
         }
@@ -44,7 +40,7 @@ int main(){
     cpp_int initialSum = 0;
 
     // Define initialPrimes and compute largePrimes
-    std::set<uint64_t> initialPrimes = {7, 13, 19, 31, 37, 43};
+    std::set<uint64_t> initialPrimes = {3, 7, 13, 19, 31, 37, 43};
     std::set<uint64_t> largePrimes;
 
     // Remove initialPrimes from specialPrimes to get largePrimes
@@ -120,7 +116,7 @@ int main(){
         // Advance to the next block
         startCount += BLOCK_SIZE;
         std::streamsize ss = std::cout.precision();
-        std::cout << "Processed up to: " << startCount << " (" << std::fixed << std::setprecision(2) << (static_cast<double>(startCount) / N_MAX) * 100 << "%) : " << sum << std::endl;
+        std::cout << startCount << " (" << std::fixed << std::setprecision(2) << (static_cast<double>(startCount) / N_MAX) * 100 << "%) : " << sum << std::endl;
         std::cout.precision(ss);
     }
 
