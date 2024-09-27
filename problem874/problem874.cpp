@@ -41,8 +41,9 @@ int main(){
     
     std::vector<int> primeDiff(primeList.size()-1, 0);
     int minDiffIdx = 0; 
-    int minDiff = 0;
-    
+    double minDiff = 0.0;
+    int sTerm = 0;
+    int steps = 0;
 
     for(int i = 0; i < primeList.size()-1; i++)
         primeDiff[i] = primeList[i+1] - primeList[i];
@@ -52,38 +53,44 @@ int main(){
     while(sum_a % 7000 != 0)
     {
         minDiffIdx = 0;
-        minDiff = 99999999;
+        minDiff = 99999999.0;
+        sTerm = 1;
+        
+        std::set<int> aValues(a.begin(), a.end());
 
-        for(int i = 0; i < a.size(); i++)
+        for(int s = 1;s <= (sum_a % 7000); s++)
         {
-            if (a[i] == 0)
-                continue;            
+            for (auto p: aValues)
+            {
+                if (p - s < 0)
+                    continue;
 
-            if(primeDiff[a[i] - 1] < minDiff)
-            {                
-                minDiff = primeDiff[a[i] - 1];
-                minDiffIdx = i;
+                if ((primeList[p] - primeList[p-s])/double(s) < minDiff)
+                {
+                    minDiff = (primeList[p] - primeList[p-s])/(2*double(s));
+                    minDiffIdx = p;
+                    sTerm = s;
+                }
             }
-        } 
+        }
+      
+        auto it = std::find(a.begin(), a.end(), minDiffIdx);
+        if (it != a.end()) {
+            *it -= sTerm;
+        }
 
-        a[minDiffIdx]--;
-        sum_a--;
+        sum_a -= sTerm;
+        steps++;
     }
 
     sum_a = std::accumulate(a.begin(), a.end(), 0);
-    std::cout << sum_a << std::endl;
+    std::cout << sum_a << ":" << steps << std::endl;
 
     for(int i = 0; i < a.size(); i++)    
-         max_sum += primeList[a[i]];
-    
+         max_sum += primeList[a[i]];    
 
     
-    std::cout << max_sum << std::endl;
-
-    for (int i = 0; i < 20 && i < primeList.size(); ++i) {
-        std::cout << primeList[i] << " ";
-    }
-    std::cout << std::endl;
+    std::cout << max_sum << std::endl;  
     
     return 0;
 }
