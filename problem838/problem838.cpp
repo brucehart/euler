@@ -2,132 +2,94 @@
 #include <set>
 #include <vector>
 #include <algorithm>
-#include <cmath>
+#include <numeric>
 #include <iomanip>
+#include <primesieve.hpp>
 
-// Define the upper limit
 static int N = 1000000;
 
-// Function to check if a number is prime using trial division
-bool checkPrime(int n){
-    if (n < 2) return false;
-    for(int d = 2; d * d <= n; d++){
-        if(n % d == 0)
-            return false;
-    }
-    return true;
-}
-
-// Function to generate primes and populate unused_primes, used_primes, and toCheck
-void generatePrimes(int n, std::set<int>& unused_primes, std::set<int>& used_primes, std::vector<int>& toCheck){
-    for(int i = 2; i <= n; i++){
-        bool is_prime = checkPrime(i);
-
-        if(is_prime){
-            if (i % 10 == 3)
-                used_primes.insert(i);
-            else            
-                unused_primes.insert(i);               
-        }
-
-        // Add to toCheck if the number ends with 3 and is not prime
-        if (i % 10 == 3 && !is_prime)
-            toCheck.push_back(i);
-    }    
-}
-
 int main(){
+    std::vector<int> primes;
     std::set<int> unused_primes;
     std::set<int> used_primes;
     std::vector<int> toCheck;
+    std::vector<std::set<int>> divisorSets;
     double logResult = 0.0;
 
-    // Generate primes and populate the sets and vector
-    generatePrimes(N, unused_primes, used_primes, toCheck);
+    primesieve::generate_primes(N, &primes);
 
-    // Collection of sets where each set contains unused primes that divide a specific i in toCheck
-    std::vector<std::set<int>> sets;
+    for (int i = 3; i < N; i+=10){
+        if (std::binary_search(primes.begin(), primes.end(), i))
+            used_primes.insert(i);       
+        else
+            toCheck.push_back(i);
+            
+    }
 
-    for(int i : toCheck){
-        std::set<int> divisors;
-        bool primeFound = false;
+    for (const auto& prime : primes) {
+        if (used_primes.find(prime) == used_primes.end()) {
+            unused_primes.insert(prime);
+        }
+    }
 
-        for (auto p: used_primes){
+    for(int i: toCheck)
+    {
+        bool prime_matched = false;             
+        
+        for (auto p: used_primes)
+        {
             if (p > i) break;
 
-            if (i % p == 0){
-                primeFound = true;
-                break;
+            if (i % p == 0)
+            {
+                prime_matched = true;
+                break;            
             }
         }
 
-        if (primeFound) continue;
-
-        for(auto p : unused_primes){
-            if(p > i) break;
-
-            if(i % p == 0){
-                divisors.insert(p);
-            }
-        }
-        if(!divisors.empty()){
-            sets.push_back(divisors);
-        }
-    }
-
-    // Sort the sets in descending order based on the smallest prime in each set
-    std::sort(sets.begin(), sets.end(), [&](const std::set<int>& a, const std::set<int>& b) -> bool {
-        if(a.empty() && b.empty()) return false;
-        if(a.empty()) return false;
-        if(b.empty()) return true;
-        return *a.begin() > *b.begin();
-    });
-
-    // Process the sets
-    while(!sets.empty()){
-        // Ensure sets are sorted correctly after any modifications
-        std::sort(sets.begin(), sets.end(), [&](const std::set<int>& a, const std::set<int>& b) -> bool {
-            if(a.empty() && b.empty()) return false;
-            if(a.empty()) return false;
-            if(b.empty()) return true;
-            return *a.begin() > *b.begin();
-        });
-
-        // Take the first set from the sorted list
-        std::set<int> current_set = sets[0];
-        if(current_set.empty()){
-            // Remove empty sets and continue
-            sets.erase(sets.begin());
+        if (prime_matched){
+            toCheck.erase(std::remove(toCheck.begin(), toCheck.end(), i), toCheck.end());
             continue;
         }
+    
+        std::set<int> divisors;
 
-        // Identify the smallest prime in the current set
-        int smallest_prime = *current_set.begin();
+        for (auto p: unused_primes)
+        {           
+            if (p > i) break;
+            if (i % p == 0)
+            {
+                divisors.insert(p);                
+            }
+        }
 
-        // Move the smallest prime from unused_primes to used_primes
-        unused_primes.erase(smallest_prime);
-        used_primes.insert(smallest_prime);
-
-        // Remove the processed set from the collection
-        sets.erase(sets.begin());
-
-        // Remove any other sets that contain the newly added prime
-        sets.erase(
-            std::remove_if(sets.begin(), sets.end(),
-                [&](const std::set<int>& s) -> bool {
-                    return s.find(smallest_prime) != s.end();
-                }),
-            sets.end()
-        );
+        divisorSets.push_back(divisors);        
+        toCheck.erase(std::remove(toCheck.begin(), toCheck.end(), i), toCheck.end());
     }
 
-    // Compute the sum of natural logarithms of all used primes
-    for(const auto& prime : used_primes){
-        logResult += log(static_cast<double>(prime));
-    }
+    std::sort(divisorSets.begin(), divisorSets.end(), [&](const std::set<int>& a, const std::set<int>& b) {
+        return *(a.begin()) > *(b.begin());
+    });
 
-    // Output the result with fixed precision
+    while(!divisorSets.empty())
+    {
+        std::set<int> currentSet = divisorSets[0];
+        divisorSets.erase(divisorSets.begin());
+        used_primes.insert(*(currentSet.begin()));
+        int primeVal = *(currentSet.begin());
+
+        divisorSets.erase(
+            std::remove_if(divisorSets.begin(), divisorSets.end(), 
+                           [primeVal](const std::set<int>& s) { return s.find(primeVal) != s.end(); }), 
+            divisorSets.end());       
+    }
+   
+    for (const auto& prime : used_primes) {
+        logResult += log(prime);
+    }
+    
     std::cout << std::fixed << std::setprecision(6) << logResult << std::endl;
+    
 
     return 0;
 }
