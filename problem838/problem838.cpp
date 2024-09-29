@@ -13,10 +13,10 @@ int main(){
     std::set<int> unused_primes;
     std::set<int> used_primes;
     std::vector<int> toCheck;
-    std::vector<std::set<int>> divisorSets;
+    std::vector<std::set<int>> divisorSets;    
     double logResult = 0.0;
 
-    primesieve::generate_primes(N, &primes);
+    primesieve::generate_primes(N, &primes);    
 
     for (int i = 3; i < N; i+=10){
         if (std::binary_search(primes.begin(), primes.end(), i))
@@ -48,7 +48,7 @@ int main(){
         }
 
         if (prime_matched){
-            toCheck.erase(std::remove(toCheck.begin(), toCheck.end(), i), toCheck.end());
+            //toCheck.erase(std::remove(toCheck.begin(), toCheck.end(), i), toCheck.end());
             continue;
         }
     
@@ -58,32 +58,63 @@ int main(){
         {           
             if (p > i) break;
             if (i % p == 0)
-            {
+            {               
                 divisors.insert(p);                
             }
         }
 
         divisorSets.push_back(divisors);        
-        toCheck.erase(std::remove(toCheck.begin(), toCheck.end(), i), toCheck.end());
+        //toCheck.erase(std::remove(toCheck.begin(), toCheck.end(), i), toCheck.end());
     }
 
     std::sort(divisorSets.begin(), divisorSets.end(), [&](const std::set<int>& a, const std::set<int>& b) {
         return *(a.begin()) > *(b.begin());
     });
 
+    std::vector<std::set<int>> two_entry_sets;
+
+    for (const auto& divisors : divisorSets) {
+        if (divisors.size() == 2) {
+            two_entry_sets.push_back(divisors);
+        }
+    }
+
+    std::sort(two_entry_sets.begin(), two_entry_sets.end(), [&](const std::set<int>& a, const std::set<int>& b) {
+        return *(a.begin()) > *(b.begin());
+    });
+
+    for(auto tE: two_entry_sets)
+    {
+        int primeVal = *(tE.begin());
+        used_primes.insert(primeVal);
+
+        divisorSets.erase(
+            std::remove_if(divisorSets.begin(), divisorSets.end(), 
+                           [primeVal](const std::set<int>& s) { return s.find(primeVal) != s.end(); }), 
+            divisorSets.end()); 
+    }
+    
+    std::cout << "Divisor sets: " << divisorSets.size() << std::endl;
+    
     while(!divisorSets.empty())
     {
         std::set<int> currentSet = divisorSets[0];
-        divisorSets.erase(divisorSets.begin());
+        //divisorSets.erase(divisorSets.begin());
         used_primes.insert(*(currentSet.begin()));
-        int primeVal = *(currentSet.begin());
+        int primeVal = *(currentSet.begin());      
 
         divisorSets.erase(
             std::remove_if(divisorSets.begin(), divisorSets.end(), 
                            [primeVal](const std::set<int>& s) { return s.find(primeVal) != s.end(); }), 
             divisorSets.end());       
+    }    
+    
+    std::cout << "Used primes: ";
+    for (const auto& prime : used_primes) {
+        std::cout << prime << " ";
     }
-   
+    std::cout << std::endl;
+
     for (const auto& prime : used_primes) {
         logResult += log(prime);
     }
