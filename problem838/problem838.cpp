@@ -71,6 +71,17 @@ int main(){
         return *(a.begin()) > *(b.begin());
     });
 
+    for (auto checkSet: divisorSets)
+    {
+        for (auto pCheck: checkSet)
+        {
+            if (used_primes.find(pCheck) != used_primes.end()) {
+                divisorSets.erase(std::remove(divisorSets.begin(), divisorSets.end(), checkSet), divisorSets.end());
+                break;
+            }
+        }
+    }
+
     std::vector<std::set<int>> two_entry_sets;
 
     for (const auto& divisors : divisorSets) {
@@ -82,6 +93,9 @@ int main(){
     std::sort(two_entry_sets.begin(), two_entry_sets.end(), [&](const std::set<int>& a, const std::set<int>& b) {
         return *(a.begin()) > *(b.begin());
     });
+
+    std::cout << "Divisor sets: " << divisorSets.size() << std::endl;
+    std::cout << "Two entry sets: " << two_entry_sets.size() << std::endl;
 
     for(auto tE: two_entry_sets)
     {
@@ -114,6 +128,9 @@ int main(){
         std::cout << prime << " ";
     }
     std::cout << std::endl;
+
+    std::cout << "Size of used_primes: " << used_primes.size() << std::endl;
+    std::cout << "Size of primes: " << primes.size() << std::endl;
 
     for (const auto& prime : used_primes) {
         logResult += log(prime);
