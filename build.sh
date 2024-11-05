@@ -21,15 +21,24 @@ else
   output_file="problem${number}"
 fi
 
+# Initialize flags
+gmp_flags=""
+primesieve_flag=""
+
 # Check if the .cpp file contains the #include <gmpxx.h> directive
 if grep -qE '#include <gmpxx.h>|#include <gmp.h>' "$source_file"; then
   #echo "Detected #include <gmpxx.h>. Adding -lgmp -lgmpxx to the compilation."
-  command="$base_command -o $output_file $source_file -lgmp -lgmpxx"
-else
-  #echo "No #include <gmpxx.h> detected. Compiling without -lgmp -lgmpxx."
-  command="$base_command -o $output_file $source_file"
+  gmp_flags="-lgmp -lgmpxx"
 fi
+
+# Check if the .cpp file contains the #include <primesieve.hpp> directive
+if grep -q '#include <primesieve.hpp>' "$source_file"; then
+  #echo "Detected #include <primesieve.hpp>. Adding -lprimesieve to the compilation."
+  primesieve_flag="-lprimesieve"
+fi
+
+# Combine the flags
+command="$base_command -o $output_file $source_file $gmp_flags $primesieve_flag"
 
 # Execute the command
 eval $command
-
