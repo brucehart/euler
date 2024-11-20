@@ -1,110 +1,86 @@
 #include <iostream>
 #include <string>
-#include <boost/multiprecision/cpp_int.hpp>
+#include <gmpxx.h>
 #include <set>
 #include <vector>
+#include <numeric>
+#include <algorithm>
 
-using boost::multiprecision::cpp_int;
+// Function to convert a big integer to a base-14 string
+std::string to_base_14(const mpz_class& x) {
+    if (x == 0)
+        return "0";
 
-std::string to_base_14(cpp_int x)
-{
-    std::string n_base14 = "";
+    mpz_class n = x;
+    std::string result;
     int base = 14;
 
-    while (x > 0){
-        int digit = (int)(x % base).convert_to<int>();
+    while (n > 0) {
+        mpz_class digit = n % base;
         char ch;
         if (digit < 10)
-            ch = '0' + digit;
+            ch = '0' + digit.get_ui();
         else
-            ch = 'a' + digit - 10;
-        n_base14 = ch + n_base14;
-        x /= base;
+            ch = 'a' + digit.get_ui() - 10;
+        result = ch + result;
+        n /= base;
     }
-    if (n_base14 == "")
-        n_base14 = "0";
 
-    return n_base14;
+    return result;
 }
 
 // Function to compute the modular inverse of 'a' modulo 'm'
-cpp_int mod_inverse(cpp_int a, cpp_int m)
-{
-    cpp_int m0 = m, t, q;
-    cpp_int x0 = 0, x1 = 1;
-
-    if (m == 1)
-        return 0;
-
-    while (a > 1)
-    {
-        // q is quotient
-        q = a / m;
-        t = m;
-
-        // m is remainder now, process same as Euclid's algorithm
-        m = a % m;
-        a = t;
-        t = x0;
-
-        x0 = x1 - q * x0;
-        x1 = t;
-    }
-
-    // Make x1 positive
-    if (x1 < 0)
-        x1 += m0;
-
-    return x1;
+mpz_class mod_inverse(const mpz_class& a, const mpz_class& m) {
+    mpz_class inv;
+    if (mpz_invert(inv.get_mpz_t(), a.get_mpz_t(), m.get_mpz_t()) == 0)
+        return 0; // No inverse exists
+    else
+        return inv;
 }
 
 // Function to generate automorphic numbers in base 14
-std::string calculate_sum(int base, int max_digits)
-{
-    cpp_int total_sum = 1;
-    std::set<cpp_int> visited;
+std::string calculate_sum(int base, int max_digits) {
+    mpz_class total_sum = 1;
+    std::set<mpz_class> visited;
     visited.insert(1);
 
     std::vector<int> residues = {7, 8}; // Starting residues modulo 14
-    for (int r = 0; r < residues.size(); ++r)
-    {
-        cpp_int n_k = residues[r];
-        cpp_int M = 1;        
+    for (int r = 0; r < residues.size(); ++r) {
+        mpz_class n_k = residues[r];
+        mpz_class M = 1;
 
-        for (int k = 1; true; ++k)
-        {
+        for (int k = 1; ; ++k) {
             M *= base; // M = 14^k
-            cpp_int n_k_square = n_k * n_k;
-            cpp_int diff = n_k_square - n_k;
-            cpp_int c = diff / (M / base);
+            mpz_class n_k_square = n_k * n_k;
+            mpz_class diff = n_k_square - n_k;
+            mpz_class c = diff / (M / base);
 
-            cpp_int denom = 2 * n_k - 1;
-            cpp_int inv = mod_inverse(denom % base, base);
+            mpz_class denom = 2 * n_k - 1;
+            mpz_class denom_mod_base = denom % base;
+            mpz_class inv = mod_inverse(denom_mod_base, base);
 
-            if (inv == 0)
-            {
-                std::cout << "No modular inverse exists at k=" << k << ", cannot proceed." << std::endl;
+            if (inv == 0) {
+                // No modular inverse exists; cannot proceed further
                 break;
             }
 
-            cpp_int m = (-c * inv) % base;
+            mpz_class c_mod_base = c % base;
+            mpz_class m = (-c_mod_base * inv) % base;
             if (m < 0)
                 m += base;
 
             n_k = n_k + m * (M / base);
-            cpp_int element = n_k;
 
-            
-
-            cpp_int single_sum = 0;
+            // Compute single_sum and num_digits
+            mpz_class element = n_k;
+            mpz_class single_sum = 0;
             int num_digits = 0;
 
-            while (element > 0)
-            {
+            while (element > 0) {
                 single_sum += element % base;
                 element /= base;
                 num_digits++;
-            }            
+            }
 
             if (num_digits > max_digits)
                 break;
@@ -113,24 +89,19 @@ std::string calculate_sum(int base, int max_digits)
                 continue;
 
             visited.insert(n_k);
-            
-            total_sum += single_sum;
-
-            if (num_digits % 1000 == 0)
-                std::cout << num_digits << std::endl;            
-        }        
+            total_sum += single_sum;            
+        }
     }
 
     return to_base_14(total_sum);
 }
 
-
-int main()
-{
+int main() {
     int base = 14;
-    int max_digits = 10000; // You can adjust this to generate more digits
+    int max_digits = 10000; // Adjust this to generate more digits
     
-    std::cout << calculate_sum(base, max_digits) << std::endl;
+    std::string result = calculate_sum(base, max_digits);
+    std::cout << result << std::endl;
 
     return 0;
 }
