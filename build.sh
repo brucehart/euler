@@ -38,7 +38,7 @@ if grep -q '#include <primesieve.hpp>' "$source_file"; then
 fi
 
 # Combine the flags
-command="$base_command -o $output_file $source_file $gmp_flags $primesieve_flag"
+command="$base_command -O3 -o $output_file $source_file $gmp_flags $primesieve_flag"
 
 # Execute the command
 eval $command
