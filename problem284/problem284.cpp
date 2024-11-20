@@ -62,6 +62,8 @@ cpp_int mod_inverse(cpp_int a, cpp_int m)
 std::string calculate_sum(int base, int max_digits)
 {
     cpp_int total_sum = 1;
+    std::set<cpp_int> visited;
+    visited.insert(1);
 
     std::vector<int> residues = {7, 8}; // Starting residues modulo 14
     for (int r = 0; r < residues.size(); ++r)
@@ -92,6 +94,8 @@ std::string calculate_sum(int base, int max_digits)
             n_k = n_k + m * (M / base);
             cpp_int element = n_k;
 
+            
+
             cpp_int single_sum = 0;
             int num_digits = 0;
 
@@ -100,10 +104,15 @@ std::string calculate_sum(int base, int max_digits)
                 single_sum += element % base;
                 element /= base;
                 num_digits++;
-            }
+            }            
 
-            if (num_digits >= max_digits)
+            if (num_digits > max_digits)
                 break;
+
+            if (visited.find(n_k) != visited.end())
+                continue;
+
+            visited.insert(n_k);
             
             total_sum += single_sum;
 
