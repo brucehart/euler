@@ -182,6 +182,7 @@ Completed and solution correct - Execution Times
 243. <1 ms
 250. 719 ms
 251. 1.777 sec
+258. 7 min 49.408 sec
 267. 1.594 sec
 271. 1 min 10.172 sec
 284. 1 min 18.813 sec.
