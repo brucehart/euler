@@ -5,3 +5,4 @@ helpers/libraries/*
 *
 !*/
 !*.*
+.git-crypt
