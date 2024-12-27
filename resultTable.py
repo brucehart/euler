@@ -29,8 +29,8 @@ def load_status_data(file_path):
                 data[problem_num] = time_in_seconds
         return data
 
-def generate_markdown_table(data, total_problems=923, items_per_row=20):
-    """Generate a Markdown table based on problem completion times."""
+def generate_markdown_table(data, total_problems=923, items_per_row=10):
+    """Generate a Markdown table with links for completed problems only."""
     markdown = "| " + " | ".join([str(i) for i in range(1, items_per_row + 1)]) + " |\n"
     markdown += "| " + " | ".join(["---"] * items_per_row) + " |\n"
 
@@ -41,12 +41,13 @@ def generate_markdown_table(data, total_problems=923, items_per_row=20):
                 row.append("")  # Fill empty cells beyond the problem count
             elif i in data:
                 time = data[i]
+                url = f"https://github.com/brucehart/euler/tree/master/problem{i}"
                 if time < 60:
-                    row.append(f"✅ {i}")  # Green for under 1 minute
+                    row.append(f"[&#9989;<br>{i}]({url})")  # Green with link
                 else:
-                    row.append(f"⚠️ {i}")  # Yellow for over 1 minute
+                    row.append(f"[&#9888;<br>{i}]({url})")  # Yellow with link
             else:
-                row.append(str(i))
+                row.append(f"{i}")  # No link for unsolved problems
         markdown += "| " + " | ".join(row) + " |\n"
     return markdown
 
