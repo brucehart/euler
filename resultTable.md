@@ -1,11 +1,3 @@
-Project Euler
-=====
-
-Completing the Project Euler (http://www.projecteuler.net) problems in 
-Python and C++.
-
-230 problems completed so far
-
 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | <span style="background-color: green;">1</span> | <span style="background-color: green;">2</span> | <span style="background-color: green;">3</span> | <span style="background-color: green;">4</span> | <span style="background-color: green;">5</span> | <span style="background-color: green;">6</span> | <span style="background-color: green;">7</span> | <span style="background-color: green;">8</span> | <span style="background-color: green;">9</span> | <span style="background-color: green;">10</span> | <span style="background-color: green;">11</span> | <span style="background-color: green;">12</span> | <span style="background-color: green;">13</span> | <span style="background-color: green;">14</span> | <span style="background-color: green;">15</span> | <span style="background-color: green;">16</span> | <span style="background-color: green;">17</span> | <span style="background-color: green;">18</span> | <span style="background-color: green;">19</span> | <span style="background-color: green;">20</span> |
