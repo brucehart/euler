@@ -7,7 +7,6 @@ def parse_time_to_seconds(time_str):
     if "ms" in time_str:
         return float(time_str.replace("ms", "").strip()) / 1000
     if "min" in time_str:
-        # Match patterns like "2 min 1.359 sec"
         match = re.match(r"(\d+)\s*min\s*([\d.]+)?\s*sec?", time_str)
         if match:
             minutes = int(match.group(1))
@@ -15,7 +14,7 @@ def parse_time_to_seconds(time_str):
             return minutes * 60 + seconds
     if "sec" in time_str:
         return float(time_str.replace("sec", "").strip())
-    return 0  # Default for unexpected formats
+    return 0
 
 def load_status_data(file_path):
     """Read and parse the status file."""
@@ -38,12 +37,14 @@ def generate_markdown_table(data, total_problems=923, items_per_row=20):
     for row_start in range(1, total_problems + 1, items_per_row):
         row = []
         for i in range(row_start, row_start + items_per_row):
-            if i in data:
+            if i > total_problems:
+                row.append("")  # Fill empty cells beyond the problem count
+            elif i in data:
                 time = data[i]
                 if time < 60:
-                    row.append(f'<span style="background-color: green;">{i}</span>')
+                    row.append(f"✅ {i}")  # Green for under 1 minute
                 else:
-                    row.append(f'<span style="background-color: yellow;">{i}</span>')
+                    row.append(f"⚠️ {i}")  # Yellow for over 1 minute
             else:
                 row.append(str(i))
         markdown += "| " + " | ".join(row) + " |\n"
