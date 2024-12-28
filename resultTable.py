@@ -29,9 +29,9 @@ def load_status_data(file_path):
                 data[problem_num] = time_in_seconds
         return data
 
-def generate_markdown_table(data, total_problems=923, items_per_row=10):
+def generate_markdown_table(data, total_problems=925, items_per_row=10):
     """Generate a Markdown table with links for completed problems only."""
-    markdown = "| " + " | ".join([str(i) for i in range(1, items_per_row + 1)]) + " |\n"
+    markdown = "| " + " | ".join(["" for i in range(1, items_per_row + 1)]) + " |\n"
     markdown += "| " + " | ".join(["---"] * items_per_row) + " |\n"
 
     for row_start in range(1, total_problems + 1, items_per_row):
