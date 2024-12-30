@@ -20,6 +20,7 @@ def load_status_data(file_path):
     """Read and parse the status file."""
     with open(file_path, "r") as file:
         data = {}
+        data["completed_problems"] = 0
         for line in file:
             match = re.match(r"(\d+)\.\s+([\d<>\.\s\w]+)", line)
             if match:
@@ -27,6 +28,7 @@ def load_status_data(file_path):
                 time_str = match.group(2)
                 time_in_seconds = parse_time_to_seconds(time_str)
                 data[problem_num] = time_in_seconds
+                data["completed_problems"] += 1
         return data
 
 def generate_markdown_table(data, total_problems=925, items_per_row=10):
@@ -39,7 +41,7 @@ def generate_markdown_table(data, total_problems=925, items_per_row=10):
         for i in range(row_start, row_start + items_per_row):
             if i > total_problems:
                 row.append("")  # Fill empty cells beyond the problem count
-            elif i in data:
+            elif i in data:                
                 time = data[i]
                 url = f"https://github.com/brucehart/euler/tree/master/problem{i}"
                 if time < 60:
@@ -56,7 +58,19 @@ file_path = "status.txt"
 
 # Process the file and generate Markdown
 data = load_status_data(file_path)
-markdown_output = generate_markdown_table(data)
+markdown_output = f"""Project Euler
+=====
+
+Completing the Project Euler (http://www.projecteuler.net) problems in 
+Python and C++.
+
+{data["completed_problems"]} problems completed so far
+&#9989; - Completed in <1 minute execution time
+&#9888; - Completed but needs to be optimized
+
+"""
+
+markdown_output += generate_markdown_table(data)
 
 # Output Markdown to stdout
 print(markdown_output)
