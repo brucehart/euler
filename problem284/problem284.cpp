@@ -5,6 +5,8 @@
 #include <vector>
 #include <numeric>
 #include <algorithm>
+#include <thread>
+#include <mutex>
 
 // Function to convert a big integer to a base-14 string
 std::string to_base_14(const mpz_class& x) {
@@ -38,59 +40,82 @@ mpz_class mod_inverse(const mpz_class& a, const mpz_class& m) {
         return inv;
 }
 
-// Function to generate automorphic numbers in base 14
-std::string calculate_sum(int base, int max_digits) {
-    mpz_class total_sum = 1;
+// Worker function to process a single residue
+void process_residue(int base, int max_digits, int residue, mpz_class& partial_sum) {
+    mpz_class n_k = residue;
+    mpz_class M = 1;
+
     std::set<mpz_class> visited;
-    visited.insert(1);
+    visited.insert(n_k);
 
-    std::vector<int> residues = {7, 8}; // Starting residues modulo 14
-    for (int r = 0; r < residues.size(); ++r) {
-        mpz_class n_k = residues[r];
-        mpz_class M = 1;
+    while (true) {
+        M *= base; // M = 14^k
+        mpz_class n_k_square = n_k * n_k;
+        mpz_class diff = n_k_square - n_k;
+        mpz_class c = diff / (M / base);
 
-        for (int k = 1; ; ++k) {
-            M *= base; // M = 14^k
-            mpz_class n_k_square = n_k * n_k;
-            mpz_class diff = n_k_square - n_k;
-            mpz_class c = diff / (M / base);
+        mpz_class denom = 2 * n_k - 1;
+        mpz_class denom_mod_base = denom % base;
+        mpz_class inv = mod_inverse(denom_mod_base, base);
 
-            mpz_class denom = 2 * n_k - 1;
-            mpz_class denom_mod_base = denom % base;
-            mpz_class inv = mod_inverse(denom_mod_base, base);
-
-            if (inv == 0) {
-                // No modular inverse exists; cannot proceed further
-                break;
-            }
-
-            mpz_class c_mod_base = c % base;
-            mpz_class m = (-c_mod_base * inv) % base;
-            if (m < 0)
-                m += base;
-
-            n_k = n_k + m * (M / base);
-
-            // Compute single_sum and num_digits
-            mpz_class element = n_k;
-            mpz_class single_sum = 0;
-            int num_digits = 0;
-
-            while (element > 0) {
-                single_sum += element % base;
-                element /= base;
-                num_digits++;
-            }
-
-            if (num_digits > max_digits)
-                break;
-
-            if (visited.find(n_k) != visited.end())
-                continue;
-
-            visited.insert(n_k);
-            total_sum += single_sum;            
+        if (inv == 0) {
+            // No modular inverse exists; cannot proceed further
+            break;
         }
+
+        mpz_class c_mod_base = c % base;
+        mpz_class m = (-c_mod_base * inv) % base;
+        if (m < 0)
+            m += base;
+
+        n_k = n_k + m * (M / base);
+
+        // Compute single_sum and num_digits
+        mpz_class element = n_k;
+        mpz_class single_sum = 0;
+        int num_digits = 0;
+
+        while (element > 0) {
+            single_sum += element % base;
+            element /= base;
+            num_digits++;
+        }
+
+        if (num_digits > max_digits)
+            break;
+
+        if (visited.find(n_k) != visited.end())
+            continue;
+
+        visited.insert(n_k);
+        partial_sum += single_sum;            
+    }
+}
+
+// Function to generate automorphic numbers in base 14 using parallel processing
+std::string calculate_sum_parallel(int base, int max_digits) {
+    mpz_class total_sum = 1; // Initialize to 1 to match the original version
+    std::vector<int> residues = {7, 8}; // Starting residues modulo 14
+
+    // Vector to hold all threads
+    std::vector<std::thread> threads;
+    // Vector to hold partial sums from each thread
+    std::vector<mpz_class> partial_sums(residues.size(), 0);
+
+    // Launch a thread for each residue
+    for (size_t i = 0; i < residues.size(); ++i) {
+        threads.emplace_back(process_residue, base, max_digits, residues[i], std::ref(partial_sums[i]));
+    }
+
+    // Wait for all threads to finish
+    for (auto& th : threads) {
+        if (th.joinable())
+            th.join();
+    }
+
+    // Aggregate the partial sums
+    for (const auto& part_sum : partial_sums) {
+        total_sum += part_sum;
     }
 
     return to_base_14(total_sum);
@@ -99,8 +124,8 @@ std::string calculate_sum(int base, int max_digits) {
 int main() {
     int base = 14;
     int max_digits = 10000; // Adjust this to generate more digits
-    
-    std::string result = calculate_sum(base, max_digits);
+
+    std::string result = calculate_sum_parallel(base, max_digits);
     std::cout << result << std::endl;
 
     return 0;
