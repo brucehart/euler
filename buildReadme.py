@@ -65,7 +65,9 @@ Completing the Project Euler (http://www.projecteuler.net) problems in
 Python and C++.
 
 {data["completed_problems"]} problems completed so far
+
 &#9989; - Completed in <1 minute execution time
+
 &#9888; - Completed but needs to be optimized
 
 """
