@@ -4,7 +4,7 @@ Project Euler
 Completing the Project Euler (http://www.projecteuler.net) problems in 
 Python and C++.
 
-236 problems completed so far
+237 problems completed so far
 
 &#9989; - Completed in <1 minute execution time
 
@@ -49,7 +49,7 @@ Python and C++.
 | 341 | 342 | 343 | 344 | [&#9989;<br>345](https://github.com/brucehart/euler/tree/master/problem345) | 346 | [&#9989;<br>347](https://github.com/brucehart/euler/tree/master/problem347) | 348 | 349 | 350 |
 | 351 | 352 | 353 | 354 | 355 | 356 | [&#9989;<br>357](https://github.com/brucehart/euler/tree/master/problem357) | 358 | 359 | 360 |
 | 361 | 362 | 363 | 364 | [&#9989;<br>365](https://github.com/brucehart/euler/tree/master/problem365) | 366 | 367 | 368 | 369 | 370 |
-| 371 | 372 | 373 | 374 | 375 | 376 | 377 | 378 | 379 | 380 |
+| 371 | 372 | 373 | 374 | 375 | 376 | [&#9989;<br>377](https://github.com/brucehart/euler/tree/master/problem377) | 378 | 379 | 380 |
 | 381 | 382 | 383 | 384 | 385 | 386 | [&#9989;<br>387](https://github.com/brucehart/euler/tree/master/problem387) | 388 | 389 | 390 |
 | 391 | 392 | 393 | 394 | 395 | 396 | 397 | 398 | 399 | 400 |
 | 401 | 402 | 403 | 404 | 405 | 406 | 407 | 408 | 409 | 410 |
