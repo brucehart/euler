@@ -4,7 +4,7 @@ Project Euler
 Completing the Project Euler (http://www.projecteuler.net) problems in 
 Python and C++.
 
-237 problems completed so far
+238 problems completed so far
 
 &#9989; - Completed in <1 minute execution time
 
@@ -65,7 +65,7 @@ Python and C++.
 | 501 | 502 | 503 | [&#9989;<br>504](https://github.com/brucehart/euler/tree/master/problem504) | 505 | 506 | 507 | 508 | 509 | 510 |
 | 511 | 512 | 513 | 514 | 515 | 516 | 517 | 518 | 519 | 520 |
 | 521 | 522 | 523 | 524 | 525 | 526 | 527 | 528 | 529 | 530 |
-| 531 | 532 | 533 | 534 | 535 | 536 | 537 | 538 | 539 | 540 |
+| [&#9989;<br>531](https://github.com/brucehart/euler/tree/master/problem531) | 532 | 533 | 534 | 535 | 536 | 537 | 538 | 539 | 540 |
 | 541 | 542 | 543 | 544 | 545 | 546 | 547 | 548 | [&#9888;<br>549](https://github.com/brucehart/euler/tree/master/problem549) | 550 |
 | 551 | 552 | 553 | 554 | 555 | 556 | 557 | 558 | 559 | 560 |
 | 561 | 562 | 563 | 564 | 565 | 566 | 567 | 568 | 569 | 570 |
