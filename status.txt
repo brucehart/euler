@@ -239,3 +239,4 @@ Completed and solution correct - Execution Times
 898. 53.203 sec
 918. 1 ms
 921. 2 min 3.651 sec
+Bonus #2 (sqrt 13). 4 ms
