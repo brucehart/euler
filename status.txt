@@ -220,6 +220,7 @@ Completed and solution correct - Execution Times
 751. 16 ms
 755. 9 ms
 757. 50.976 sec
+793. 170 ms
 800. 2 min 14.4 sec
 804. 175 ms
 808. 48.625 sec
@@ -232,6 +233,7 @@ Completed and solution correct - Execution Times
 874. 11.969 sec
 884. 1.406 sec
 885. 1 min 42.121 sec
+893. 1 min 32.289 sec
 898. 53.203 sec
 918. 1 ms
 921. 2 min 3.651 sec

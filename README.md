@@ -4,7 +4,7 @@ Project Euler
 Completing the Project Euler (http://www.projecteuler.net) problems in 
 Python and C++.
 
-234 problems completed so far
+236 problems completed so far
 
 &#9989; - Completed in <1 minute execution time
 
@@ -91,7 +91,7 @@ Python and C++.
 | 761 | 762 | 763 | 764 | 765 | 766 | 767 | 768 | 769 | 770 |
 | 771 | 772 | 773 | 774 | 775 | 776 | 777 | 778 | 779 | 780 |
 | 781 | 782 | 783 | 784 | 785 | 786 | 787 | 788 | 789 | 790 |
-| 791 | 792 | 793 | 794 | 795 | 796 | 797 | 798 | 799 | [&#9888;<br>800](https://github.com/brucehart/euler/tree/master/problem800) |
+| 791 | 792 | [&#9989;<br>793](https://github.com/brucehart/euler/tree/master/problem793) | 794 | 795 | 796 | 797 | 798 | 799 | [&#9888;<br>800](https://github.com/brucehart/euler/tree/master/problem800) |
 | 801 | 802 | 803 | [&#9989;<br>804](https://github.com/brucehart/euler/tree/master/problem804) | 805 | 806 | 807 | [&#9989;<br>808](https://github.com/brucehart/euler/tree/master/problem808) | 809 | 810 |
 | 811 | 812 | 813 | 814 | 815 | [&#9888;<br>816](https://github.com/brucehart/euler/tree/master/problem816) | 817 | 818 | 819 | [&#9989;<br>820](https://github.com/brucehart/euler/tree/master/problem820) |
 | 821 | [&#9989;<br>822](https://github.com/brucehart/euler/tree/master/problem822) | 823 | 824 | 825 | 826 | 827 | 828 | 829 | 830 |
@@ -101,7 +101,7 @@ Python and C++.
 | 861 | [&#9989;<br>862](https://github.com/brucehart/euler/tree/master/problem862) | 863 | 864 | 865 | 866 | 867 | 868 | 869 | 870 |
 | 871 | 872 | 873 | [&#9989;<br>874](https://github.com/brucehart/euler/tree/master/problem874) | 875 | 876 | 877 | 878 | 879 | 880 |
 | 881 | 882 | 883 | [&#9989;<br>884](https://github.com/brucehart/euler/tree/master/problem884) | [&#9888;<br>885](https://github.com/brucehart/euler/tree/master/problem885) | 886 | 887 | 888 | 889 | 890 |
-| 891 | 892 | 893 | 894 | 895 | 896 | 897 | [&#9989;<br>898](https://github.com/brucehart/euler/tree/master/problem898) | 899 | 900 |
+| 891 | 892 | [&#9888;<br>893](https://github.com/brucehart/euler/tree/master/problem893) | 894 | 895 | 896 | 897 | [&#9989;<br>898](https://github.com/brucehart/euler/tree/master/problem898) | 899 | 900 |
 | 901 | 902 | 903 | 904 | 905 | 906 | 907 | 908 | 909 | 910 |
 | 911 | 912 | 913 | 914 | 915 | 916 | 917 | [&#9989;<br>918](https://github.com/brucehart/euler/tree/master/problem918) | 919 | 920 |
 | [&#9888;<br>921](https://github.com/brucehart/euler/tree/master/problem921) | 922 | 923 | 924 | 925 |  |  |  |  |  |
