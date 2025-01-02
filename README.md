@@ -4,11 +4,7 @@ Project Euler
 Completing the Project Euler (http://www.projecteuler.net) problems in 
 Python and C++.
 
-<<<<<<< HEAD
-235 problems completed so far
-=======
-239 problems completed so far
->>>>>>> refs/remotes/origin/master
+240 problems completed so far
 
 &#9989; - Completed in <1 minute execution time
 
