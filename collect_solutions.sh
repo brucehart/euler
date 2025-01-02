@@ -5,7 +5,7 @@
 
 # Loop through all subfolders named problem{number}
 for folder in problem*; do
-    if [ -d "$folder" ]; then
+    if [ -d "$folder" ] && [[ ! "$folder" == problem_* ]]; then
         # Extract the number from the folder name
         number=$(echo "$folder" | grep -o '[0-9]\+')
         
@@ -28,3 +28,5 @@ done
 # Sort the solutions.txt by numeric value of the number
 sort -n -k1,1 solutions.txt -o solutions.txt
 
+# Remove any empty lines in the solutions.txt file
+sed -i '/^$/d' solutions.txt

@@ -196,11 +196,13 @@ Completed and solution correct - Execution Times
 313. 0 ms
 321. 0 ms
 331. 43.859 sec
+336. 13 ms
 340. 0 ms
 345. 6 ms
 347. 2.328 sec
 357. 9.938 sec
 365. 5.891 sec
+377. 2 ms
 387. 8 ms
 419. 261 ms
 474. 1 min 27.250 sec
@@ -208,6 +210,7 @@ Completed and solution correct - Execution Times
 485. 5.359 sec
 493. 2 ms
 504. 14.294 sec
+531. 895 ms
 549. 8 min 29.469 sec
 571. 13 min 32.9 sec
 612. 375 ms
@@ -221,6 +224,7 @@ Completed and solution correct - Execution Times
 751. 16 ms
 755. 9 ms
 757. 50.976 sec
+793. 170 ms
 800. 2 min 14.4 sec
 804. 175 ms
 808. 48.625 sec
@@ -233,6 +237,8 @@ Completed and solution correct - Execution Times
 874. 11.969 sec
 884. 1.406 sec
 885. 1 min 42.121 sec
+893. 1 min 32.289 sec
 898. 53.203 sec
 918. 1 ms
 921. 2 min 3.651 sec
+Bonus #2 (sqrt 13). 4 ms

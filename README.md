@@ -4,7 +4,11 @@ Project Euler
 Completing the Project Euler (http://www.projecteuler.net) problems in 
 Python and C++.
 
+<<<<<<< HEAD
 235 problems completed so far
+=======
+239 problems completed so far
+>>>>>>> refs/remotes/origin/master
 
 &#9989; - Completed in <1 minute execution time
 
@@ -45,11 +49,11 @@ Python and C++.
 | 301 | 302 | [&#9989;<br>303](https://github.com/brucehart/euler/tree/master/problem303) | 304 | 305 | 306 | 307 | 308 | 309 | 310 |
 | 311 | 312 | [&#9989;<br>313](https://github.com/brucehart/euler/tree/master/problem313) | 314 | 315 | 316 | 317 | 318 | 319 | 320 |
 | [&#9989;<br>321](https://github.com/brucehart/euler/tree/master/problem321) | 322 | 323 | 324 | 325 | 326 | 327 | 328 | 329 | 330 |
-| [&#9989;<br>331](https://github.com/brucehart/euler/tree/master/problem331) | 332 | 333 | 334 | 335 | 336 | 337 | 338 | 339 | [&#9989;<br>340](https://github.com/brucehart/euler/tree/master/problem340) |
+| [&#9989;<br>331](https://github.com/brucehart/euler/tree/master/problem331) | 332 | 333 | 334 | 335 | [&#9989;<br>336](https://github.com/brucehart/euler/tree/master/problem336) | 337 | 338 | 339 | [&#9989;<br>340](https://github.com/brucehart/euler/tree/master/problem340) |
 | 341 | 342 | 343 | 344 | [&#9989;<br>345](https://github.com/brucehart/euler/tree/master/problem345) | 346 | [&#9989;<br>347](https://github.com/brucehart/euler/tree/master/problem347) | 348 | 349 | 350 |
 | 351 | 352 | 353 | 354 | 355 | 356 | [&#9989;<br>357](https://github.com/brucehart/euler/tree/master/problem357) | 358 | 359 | 360 |
 | 361 | 362 | 363 | 364 | [&#9989;<br>365](https://github.com/brucehart/euler/tree/master/problem365) | 366 | 367 | 368 | 369 | 370 |
-| 371 | 372 | 373 | 374 | 375 | 376 | 377 | 378 | 379 | 380 |
+| 371 | 372 | 373 | 374 | 375 | 376 | [&#9989;<br>377](https://github.com/brucehart/euler/tree/master/problem377) | 378 | 379 | 380 |
 | 381 | 382 | 383 | 384 | 385 | 386 | [&#9989;<br>387](https://github.com/brucehart/euler/tree/master/problem387) | 388 | 389 | 390 |
 | 391 | 392 | 393 | 394 | 395 | 396 | 397 | 398 | 399 | 400 |
 | 401 | 402 | 403 | 404 | 405 | 406 | 407 | 408 | 409 | 410 |
@@ -65,7 +69,7 @@ Python and C++.
 | 501 | 502 | 503 | [&#9989;<br>504](https://github.com/brucehart/euler/tree/master/problem504) | 505 | 506 | 507 | 508 | 509 | 510 |
 | 511 | 512 | 513 | 514 | 515 | 516 | 517 | 518 | 519 | 520 |
 | 521 | 522 | 523 | 524 | 525 | 526 | 527 | 528 | 529 | 530 |
-| 531 | 532 | 533 | 534 | 535 | 536 | 537 | 538 | 539 | 540 |
+| [&#9989;<br>531](https://github.com/brucehart/euler/tree/master/problem531) | 532 | 533 | 534 | 535 | 536 | 537 | 538 | 539 | 540 |
 | 541 | 542 | 543 | 544 | 545 | 546 | 547 | 548 | [&#9888;<br>549](https://github.com/brucehart/euler/tree/master/problem549) | 550 |
 | 551 | 552 | 553 | 554 | 555 | 556 | 557 | 558 | 559 | 560 |
 | 561 | 562 | 563 | 564 | 565 | 566 | 567 | 568 | 569 | 570 |
@@ -91,7 +95,7 @@ Python and C++.
 | 761 | 762 | 763 | 764 | 765 | 766 | 767 | 768 | 769 | 770 |
 | 771 | 772 | 773 | 774 | 775 | 776 | 777 | 778 | 779 | 780 |
 | 781 | 782 | 783 | 784 | 785 | 786 | 787 | 788 | 789 | 790 |
-| 791 | 792 | 793 | 794 | 795 | 796 | 797 | 798 | 799 | [&#9888;<br>800](https://github.com/brucehart/euler/tree/master/problem800) |
+| 791 | 792 | [&#9989;<br>793](https://github.com/brucehart/euler/tree/master/problem793) | 794 | 795 | 796 | 797 | 798 | 799 | [&#9888;<br>800](https://github.com/brucehart/euler/tree/master/problem800) |
 | 801 | 802 | 803 | [&#9989;<br>804](https://github.com/brucehart/euler/tree/master/problem804) | 805 | 806 | 807 | [&#9989;<br>808](https://github.com/brucehart/euler/tree/master/problem808) | 809 | 810 |
 | 811 | 812 | 813 | 814 | 815 | [&#9888;<br>816](https://github.com/brucehart/euler/tree/master/problem816) | 817 | 818 | 819 | [&#9989;<br>820](https://github.com/brucehart/euler/tree/master/problem820) |
 | 821 | [&#9989;<br>822](https://github.com/brucehart/euler/tree/master/problem822) | 823 | 824 | 825 | 826 | 827 | 828 | 829 | 830 |
@@ -101,7 +105,7 @@ Python and C++.
 | 861 | [&#9989;<br>862](https://github.com/brucehart/euler/tree/master/problem862) | 863 | 864 | 865 | 866 | 867 | 868 | 869 | 870 |
 | 871 | 872 | 873 | [&#9989;<br>874](https://github.com/brucehart/euler/tree/master/problem874) | 875 | 876 | 877 | 878 | 879 | 880 |
 | 881 | 882 | 883 | [&#9989;<br>884](https://github.com/brucehart/euler/tree/master/problem884) | [&#9888;<br>885](https://github.com/brucehart/euler/tree/master/problem885) | 886 | 887 | 888 | 889 | 890 |
-| 891 | 892 | 893 | 894 | 895 | 896 | 897 | [&#9989;<br>898](https://github.com/brucehart/euler/tree/master/problem898) | 899 | 900 |
+| 891 | 892 | [&#9888;<br>893](https://github.com/brucehart/euler/tree/master/problem893) | 894 | 895 | 896 | 897 | [&#9989;<br>898](https://github.com/brucehart/euler/tree/master/problem898) | 899 | 900 |
 | 901 | 902 | 903 | 904 | 905 | 906 | 907 | 908 | 909 | 910 |
 | 911 | 912 | 913 | 914 | 915 | 916 | 917 | [&#9989;<br>918](https://github.com/brucehart/euler/tree/master/problem918) | 919 | 920 |
 | [&#9888;<br>921](https://github.com/brucehart/euler/tree/master/problem921) | 922 | 923 | 924 | 925 |  |  |  |  |  |
