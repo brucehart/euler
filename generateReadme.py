@@ -193,7 +193,6 @@ Completing the Project Euler (http://www.projecteuler.net) problems in Python an
 
 **{data["completed_problems"]}** problems completed so far.
 
-Below is a table of small PNG images.  
 - **Green** = Completed in <2 minutes  
 - **Yellow** = Completed in ≥2 minutes  
 - **White** = Not completed
